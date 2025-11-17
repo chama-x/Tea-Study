@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fefdfb">
+    <title>Study Notes</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Unified Top Bar -->
+    <header class="top-bar">
+        <input type="file" id="fileInput" accept=".json" hidden>
+        
+        <!-- Left: File actions -->
+        <div class="header-section">
+            <button id="importBtn" class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                Open
+            </button>
+            <button id="exportBtn" class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                Export
+            </button>
+        </div>
+        
+        <!-- Center: Document info -->
+        <div class="header-section header-info">
+            <span id="topicTitle" class="topic-title">No notes loaded</span>
+        </div>
+        
+        <!-- Right: Options and mode toggle -->
+        <div class="header-section">
+            <label class="toggle-option">
+                <input type="checkbox" id="toggleTooltips">
+                <span class="toggle-label">Tooltips</span>
+            </label>
+            <label class="toggle-option">
+                <input type="checkbox" id="togglePaths">
+                <span class="toggle-label">Paths</span>
+            </label>
+        </div>
+        
+        <div class="header-section mode-toggle">
+            <button class="mode-btn active" data-mode="exam">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="9" y1="15" x2="15" y2="15"/>
+                </svg>
+                Exam
+            </button>
+            <button class="mode-btn" data-mode="full">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                Full
+            </button>
+        </div>
+    </header>
+
+    <!-- Paper Sheet -->
+    <main class="paper-sheet">
+        <!-- 3-hole punch -->
+        <div class="holes">
+            <span class="hole"></span>
+            <span class="hole"></span>
+            <span class="hole"></span>
+        </div>
+
+        <!-- Margin line (vertical) -->
+        <div class="margin-line"></div>
+
+        <!-- Content area with horizontal rules -->
+        <article id="noteContent" class="note-content" contenteditable="true">
+            <!-- Content blocks will be injected here -->
+        </article>
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Register Service Worker (only when served over HTTP/HTTPS)
+        if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('SW registered', reg))
+                .catch(err => console.log('SW error', err));
+        }
+    </script>
+</body>
+</html>

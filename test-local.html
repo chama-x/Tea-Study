@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Server Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .status {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Study Notes App - Server Test</h1>
+    
+    <div id="status"></div>
+    
+    <button onclick="testFetch()">Test Fetch API</button>
+    
+    <h2>Instructions:</h2>
+    <ol>
+        <li>If you see an error, you need to run a local server</li>
+        <li>Open terminal in this folder</li>
+        <li>Run: <code>python3 -m http.server 8000</code></li>
+        <li>Open: <code>http://localhost:8000</code></li>
+    </ol>
+    
+    <h2>Why this is needed:</h2>
+    <p>Browsers block <code>file://</code> protocol from making fetch requests for security reasons. This won't be an issue on GitHub Pages or Netlify.</p>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        
+        async function testFetch() {
+            statusDiv.innerHTML = '<div class="status warning">Testing...</div>';
+            
+            try {
+                // Test if we can fetch the notes index
+                const response = await fetch('notes/index.html');
+                
+                if (response.ok) {
+                    statusDiv.innerHTML = `
+                        <div class="status success">
+                            <h3>✅ Success!</h3>
+                            <p>Your server is working correctly. The app will work fine on GitHub Pages.</p>
+                            <p>Protocol: <code>${window.location.protocol}</code></p>
+                            <p>You can now use the main app: <a href="index.html">Open Study Notes App</a></p>
+                        </div>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <div class="status error">
+                            <h3>❌ Server Error</h3>
+                            <p>Got response but status: ${response.status}</p>
+                            <p>Make sure the notes folder exists.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                if (window.location.protocol === 'file:') {
+                    statusDiv.innerHTML = `
+                        <div class="status error">
+                            <h3>❌ File Protocol Detected</h3>
+                            <p>You're opening this file directly (file:// protocol).</p>
+                            <p><strong>Solution:</strong> Run a local server:</p>
+                            <ol>
+                                <li>Open terminal in this folder</li>
+                                <li>Run: <code>python3 -m http.server 8000</code></li>
+                                <li>Open: <code>http://localhost:8000/test-local.html</code></li>
+                            </ol>
+                            <p><strong>Note:</strong> This won't be an issue on GitHub Pages!</p>
+                        </div>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `
+                        <div class="status error">
+                            <h3>❌ Fetch Error</h3>
+                            <p>${error.message}</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // Auto-test on load
+        window.addEventListener('load', testFetch);
+    </script>
+</body>
+</html>

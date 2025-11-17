@@ -1,0 +1,1518 @@
+/* ============================================
+   RESET & BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --paper-bg: #fefdfb;
+    --paper-shadow: rgba(27, 27, 27, 0.08);
+    --ruled-line: #e3ddd4;
+    --margin-line: #c9a57a;
+    --text-primary: #1a1410;
+    --text-secondary: #5a4f3f;
+    --margin-text: #8b6f47;
+    --critical-bg: #fef9e7;
+    --important-mark: #d4a574;
+    --hole-bg: #e8e5e1;
+    --critical-highlight: rgba(254, 243, 199, 0.15); /* Very subtle yellow tint */
+    
+    /* Typography */
+    --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    --font-body: "Charter", "Palatino", "Georgia", serif;
+    --font-margin: "SF Mono", "Menlo", monospace;
+    
+    /* Spacing */
+    --line-height: 2em;
+    --margin-width: 80px;
+    --hole-width: 35px;
+    --content-padding: 20px;
+}
+
+body {
+    background: linear-gradient(180deg, #f5f3f0 0%, #ebe8e3 100%);
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    line-height: var(--line-height);
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* ============================================
+   UNIFIED TOP BAR
+   ============================================ */
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e0dcd7;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-info {
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0; /* Allow text truncation */
+}
+
+.action-btn {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    padding: 7px 14px;
+    background: white;
+    border: 1px solid #d0cbc4;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.action-btn svg {
+    flex-shrink: 0;
+}
+
+.action-btn:hover {
+    background: #f5f3f0;
+    border-color: #a39b8f;
+}
+
+.topic-title {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stats-display {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-family: var(--font-margin);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ============================================
+   PAPER SHEET
+   ============================================ */
+.paper-sheet {
+    width: 794px;
+    max-width: calc(100% - 40px);
+    min-height: 1123px;
+    margin: 40px auto 80px;
+    background: var(--paper-bg);
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent calc(var(--line-height) - 1px),
+            var(--ruled-line) calc(var(--line-height) - 1px),
+            var(--ruled-line) var(--line-height)
+        );
+    background-position: 0 0;
+    box-shadow: 
+        0 1px 2px rgba(0,0,0,0.04),
+        0 4px 12px rgba(0,0,0,0.06),
+        0 16px 48px rgba(0,0,0,0.08);
+    position: relative;
+    padding: 0 50px 60px calc(var(--hole-width) + var(--margin-width) + 20px);
+    padding-top: calc(var(--line-height) * 1.5);
+}
+
+/* ============================================
+   HOLES (3-hole punch)
+   ============================================ */
+.holes {
+    position: absolute;
+    left: calc(var(--hole-width) / 2);
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.hole {
+    width: 32px;
+    height: 32px;
+    background: var(--hole-bg);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* ============================================
+   MARGIN LINE
+   ============================================ */
+.margin-line {
+    position: absolute;
+    left: calc(var(--hole-width) + var(--margin-width));
+    top: 0;
+    width: 1.5px;
+    height: 100%;
+    background: var(--margin-line);
+    opacity: 0.6;
+}
+
+/* ============================================
+   CONTENT AREA
+   ============================================ */
+.note-content {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: var(--line-height);
+    color: var(--text-primary);
+    outline: none;
+    min-height: 800px;
+}
+
+/* Preserve line alignment - critical for ruled lines */
+.note-content > * {
+    line-height: var(--line-height);
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure paragraphs align with lines */
+.note-content p,
+.concept-content p,
+.section-content p {
+    line-height: var(--line-height);
+    margin: 0;
+}
+
+/* ============================================
+   CONTENT BLOCKS
+   ============================================ */
+
+/* Hierarchical indentation based on level */
+.level-1 { padding-left: 0; }
+.level-2 { padding-left: 20px; }
+.level-3 { padding-left: 40px; }
+.level-4 { padding-left: 60px; }
+
+/* Headings */
+.block-heading {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: calc(var(--line-height) * 2);
+    position: relative;
+}
+
+.block-heading.level-1 {
+    font-size: 24px;
+    line-height: calc(var(--line-height) * 1.5);
+    border-bottom: 2px solid var(--margin-line);
+    padding-bottom: 4px;
+}
+
+.block-heading.level-2 {
+    font-size: 20px;
+    margin-top: var(--line-height);
+}
+
+.block-heading.level-3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: calc(var(--line-height) / 2);
+}
+
+/* Definition blocks */
+.block-definition {
+    background: var(--critical-bg);
+    padding: 8px 12px;
+    border-left: 3px solid var(--important-mark);
+    margin: calc(var(--line-height) / 2) 0;
+    position: relative;
+}
+
+.block-definition strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Section blocks */
+.section-block {
+    margin: calc(var(--line-height) * 1) 0;
+    position: relative;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: var(--line-height);
+    margin: 0 0 var(--line-height) 0;
+}
+
+.level-1 .section-title {
+    font-size: 24px;
+    line-height: calc(var(--line-height) * 1.5);
+    border-bottom: 2px solid var(--margin-line);
+    padding-bottom: 4px;
+    margin-bottom: calc(var(--line-height) * 0.5);
+}
+
+.level-2 .section-title {
+    font-size: 20px;
+    line-height: var(--line-height);
+}
+
+.level-3 .section-title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: var(--line-height);
+}
+
+.level-4 .section-title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: var(--line-height);
+}
+
+.section-content {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* Exam badge */
+.exam-badge {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* Concept blocks */
+.concept-block {
+    margin: var(--line-height) 0;
+    position: relative;
+}
+
+.concept-block p {
+    margin: 0;
+    line-height: var(--line-height);
+}
+
+/* Exam-critical styling - very subtle paper tint */
+.exam-critical {
+    background: var(--critical-highlight);
+    padding-left: 12px;
+    border-left: 1px solid rgba(201, 165, 122, 0.2); /* Almost invisible margin-line color */
+}
+
+.block-concept {
+    margin: calc(var(--line-height) / 2) 0;
+    position: relative;
+}
+
+/* Procedures */
+.block-procedure {
+    margin: var(--line-height) 0;
+    position: relative;
+}
+
+.block-procedure ol {
+    margin-left: 24px;
+    padding-left: 0;
+}
+
+.block-procedure li {
+    margin: calc(var(--line-height) / 2) 0;
+}
+
+/* Visual blocks (replaces diagrams) */
+.visual-block {
+    margin: var(--line-height) 0;
+    padding: 16px;
+    background: #f5f3f0;
+    border-radius: 8px;
+    position: relative;
+}
+
+.visual-description {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.visual-ascii {
+    font-family: var(--font-margin);
+    font-size: 13px;
+    line-height: 1.4;
+    background: white;
+    padding: 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+    border: 1px solid var(--ruled-line);
+}
+
+/* Formula blocks */
+.formula-block {
+    margin: var(--line-height) 0;
+    padding: 16px;
+    background: var(--critical-bg);
+    border-left: 4px solid var(--important-mark);
+    border-radius: 4px;
+    position: relative;
+}
+
+.formula-content {
+    font-family: var(--font-margin);
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* Example blocks */
+.example-block {
+    margin: var(--line-height) 0;
+    padding: 12px 16px;
+    border-left: 3px solid var(--ruled-line);
+    background: rgba(0, 0, 0, 0.02);
+    position: relative;
+}
+
+.example-content {
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Examples (legacy) */
+.block-example {
+    font-style: italic;
+    color: var(--text-secondary);
+    padding-left: 16px;
+    border-left: 2px solid var(--ruled-line);
+    margin: calc(var(--line-height) / 2) 0;
+    position: relative;
+}
+
+/* Warnings */
+.block-warning {
+    background: #fff9f0;
+    border-left: 3px solid #e8a04a;
+    padding: 8px 12px;
+    margin: calc(var(--line-height) / 2) 0;
+    position: relative;
+}
+
+.block-warning::before {
+    content: "⚠️ ";
+}
+
+/* List blocks */
+.list-block {
+    margin: var(--line-height) 0;
+    position: relative;
+}
+
+.list-intro {
+    margin: 0 0 var(--line-height) 0;
+    font-weight: 500;
+    line-height: var(--line-height);
+}
+
+.list-block ul {
+    margin: 0;
+    padding-left: 24px;
+}
+
+.list-block li {
+    margin: 0;
+    line-height: var(--line-height);
+}
+
+/* Table blocks */
+.table-block {
+    margin: var(--line-height) 0;
+    overflow-x: auto;
+    position: relative;
+}
+
+.table-block table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.table-block th,
+.table-block td {
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid var(--ruled-line);
+}
+
+.table-block th {
+    background: #f9f7f4;
+    font-weight: 600;
+    font-family: var(--font-heading);
+}
+
+/* Comparisons & Tables (legacy) */
+.block-comparison {
+    position: relative;
+    margin: calc(var(--line-height) / 2) 0;
+}
+
+.block-comparison table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: calc(var(--line-height) / 2) 0;
+    font-size: 15px;
+    background: var(--paper-bg);
+}
+
+.block-comparison th, .block-comparison td {
+    border: 1px solid var(--ruled-line);
+    padding: 8px 12px;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.block-comparison th {
+    background: #f9f7f4;
+    font-weight: 600;
+    font-family: var(--font-heading);
+}
+
+.block-comparison td {
+    font-family: var(--font-body);
+}
+
+/* ============================================
+   MARGIN ANNOTATIONS & HOVER TOPICS
+   ============================================ */
+.margin-note {
+    position: absolute;
+    left: calc(-1 * (var(--margin-width) + 20px));
+    width: var(--margin-width);
+    font-family: var(--font-margin);
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--margin-text);
+    text-align: right;
+    padding-right: 12px;
+}
+
+.margin-note.critical {
+    color: #b8860b;
+    font-weight: 600;
+}
+
+.margin-note.important {
+    color: var(--important-mark);
+}
+
+
+
+/* ============================================
+   INLINE FORMATTING
+   ============================================ */
+strong, b {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+em, i {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+code {
+    font-family: var(--font-margin);
+    font-size: 0.9em;
+    background: #f5f3f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid #e0dcd7;
+}
+
+/* ============================================
+   HIGHLIGHT SYSTEM
+   ============================================ */
+mark-critical, .mark-critical {
+    background: linear-gradient(180deg, transparent 60%, #fee2e2 60%);
+    color: #991b1b;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 2px;
+    display: inline;
+}
+
+mark-key, .mark-key {
+    background: linear-gradient(180deg, transparent 60%, #fef3c7 60%);
+    color: #92400e;
+    font-weight: 500;
+    padding: 2px 4px;
+    border-radius: 2px;
+    display: inline;
+}
+
+/* ============================================
+   TOGGLE OPTIONS (Checkboxes)
+   ============================================ */
+.toggle-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-option input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #d0cbc4;
+    border-radius: 3px;
+    background: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.toggle-option input[type="checkbox"]:hover {
+    border-color: #a39b8f;
+}
+
+.toggle-option input[type="checkbox"]:checked {
+    background: var(--margin-line);
+    border-color: var(--margin-line);
+}
+
+.toggle-option input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.toggle-label {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   MODE TOGGLE (in header)
+   ============================================ */
+.mode-toggle {
+    display: flex;
+    gap: 6px;
+    background: #f5f3f0;
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.mode-btn {
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-ui);
+    transition: all 0.2s;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mode-btn svg {
+    flex-shrink: 0;
+}
+
+.mode-btn.active {
+    background: white;
+    color: var(--text-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mode-btn:hover:not(.active) {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   GENERIC BLOCKS
+   ============================================ */
+.generic-block {
+    margin: calc(var(--line-height) / 2) 0;
+    position: relative;
+}
+
+/* ============================================
+   PATH BADGE & TOPIC HEADING
+   ============================================ */
+.path-badge {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    color: #9ca3af;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+}
+
+.topic-heading {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 calc(var(--line-height) * 0.5) 0;
+    line-height: var(--line-height);
+}
+
+/* ============================================
+   KEY SENTENCE HIGHLIGHTING (Realistic highlighter effect)
+   ============================================ */
+.key-sentence {
+    --mark-color: #fff4d6;
+    --mark-skew: 0.25em;
+    --mark-height: 1em;
+    --mark-overlap: 0.3em;
+    margin-inline: calc(var(--mark-overlap) * -1);
+    padding-inline: var(--mark-overlap);
+    background-color: transparent;
+    background-image:
+        linear-gradient(to bottom right, transparent 50%, var(--mark-color) 50%),
+        linear-gradient(var(--mark-color), var(--mark-color)),
+        linear-gradient(to top left, transparent 50%, var(--mark-color) 50%);
+    background-size:
+        var(--mark-skew) var(--mark-height),
+        calc(100% - var(--mark-skew) * 2 + 1px) var(--mark-height),
+        var(--mark-skew) var(--mark-height);
+    background-position: left center, center, right center;
+    background-repeat: no-repeat;
+    color: inherit;
+    font-weight: 500;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+/* ============================================
+   METADATA PANEL (Hidden - using hover tooltips instead)
+   ============================================ */
+.metadata-panel {
+    display: none;
+}
+
+/* ============================================
+   CONTENT BULLETS
+   ============================================ */
+.content-bullets {
+    margin: 0;
+    padding-left: 24px;
+}
+
+.content-bullets li {
+    margin: 0;
+    line-height: var(--line-height);
+}
+
+.content-bullets ul,
+.content-bullets ol {
+    margin: 0;
+    margin-left: 20px;
+}
+
+/* ============================================
+   EXAM BADGE
+   ============================================ */
+.exam-badge {
+    font-size: 14px;
+    margin-right: 6px;
+    opacity: 0.8;
+}
+
+/* Exam badge visible in both modes */
+.exam-badge {
+    opacity: 1;
+}
+
+/* ============================================
+   TOGGLE-SPECIFIC STYLES
+   ============================================ */
+.tooltips-disabled [data-simple],
+.tooltips-disabled [data-analogy],
+.tooltips-disabled [data-why] {
+    pointer-events: none;
+}
+
+.tooltips-disabled .metadata-tooltip {
+    display: none !important;
+}
+
+.paths-disabled .path-badge {
+    display: none;
+}
+
+/* ============================================
+   MODE-SPECIFIC STYLES
+   ============================================ */
+
+/* ============================================
+   NOTIFICATION SYSTEM
+   ============================================ */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background: #10b981;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+    font-family: var(--font-ui);
+    font-size: 14px;
+}
+
+.notification.error {
+    background: #ef4444;
+}
+
+.notification.fade-out {
+    animation: fadeOut 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 850px) {
+    .paper-sheet {
+        margin: 20px;
+        padding-left: 65px;
+    }
+    
+    .holes {
+        left: 8px;
+    }
+    
+    .margin-line {
+        left: 55px;
+    }
+    
+    :root {
+        --margin-width: 50px;
+        --hole-width: 20px;
+    }
+}
+
+@media print {
+    /* Hide UI elements only */
+    .top-bar {
+        display: none !important;
+    }
+    
+    /* Remove body background */
+    body {
+        background: white;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Optimize paper sheet for printing - keep the paper look */
+    .paper-sheet {
+        box-shadow: none;
+        margin: 0;
+        padding: 40px 40px 40px calc(var(--hole-width) + var(--margin-width) + 20px);
+        width: 100%;
+        max-width: 100%;
+        background: white;
+        /* Keep ruled lines for authentic paper look */
+        background-image: 
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent calc(var(--line-height) - 1px),
+                #e8e8e8 calc(var(--line-height) - 1px),
+                #e8e8e8 var(--line-height)
+            );
+        page-break-after: avoid;
+    }
+    
+    /* Keep holes visible for paper aesthetic */
+    .holes {
+        display: flex;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .hole {
+        background: #e8e5e1;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    /* Hide margin line in print */
+    .margin-line {
+        display: none;
+    }
+    
+    /* Ensure content is readable */
+    .note-content {
+        color: #000;
+    }
+    
+    /* Preserve all highlighting colors */
+    mark-critical,
+    .mark-critical {
+        background: linear-gradient(180deg, transparent 60%, #fee2e2 60%);
+        color: #991b1b;
+        font-weight: 600;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    mark-key,
+    .mark-key {
+        background: linear-gradient(180deg, transparent 60%, #fef3c7 60%);
+        color: #92400e;
+        font-weight: 500;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .key-sentence {
+        background: linear-gradient(180deg, transparent 65%, rgba(212, 165, 116, 0.25) 65%);
+        color: inherit;
+        font-weight: 500;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    /* Preserve block styling */
+    .exam-critical {
+        background: rgba(254, 243, 199, 0.15);
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .example-block {
+        background: rgba(0, 0, 0, 0.02);
+        border-left: 3px solid #e3ddd4;
+        page-break-inside: avoid;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .formula-block {
+        background: #fef9e7;
+        border-left: 4px solid #d4a574;
+        page-break-inside: avoid;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    /* Keep sections together */
+    .section-block,
+    .concept-block,
+    .list-block {
+        page-break-inside: avoid;
+    }
+    
+    /* Preserve margin notes */
+    .margin-note {
+        color: #8b6f47;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    /* Preserve exam badge */
+    .exam-badge {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    /* Hide tooltips and interactive elements */
+    .metadata-tooltip,
+    .metadata-indicator {
+        display: none !important;
+    }
+    
+    /* Preserve user notes if added */
+    .user-notes {
+        background: #fffbeb;
+        border-left: 3px solid #f59e0b;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        page-break-inside: avoid;
+    }
+    
+    .added-note {
+        border-bottom: 1px solid #fef3c7;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .note-label {
+        color: #92400e;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .note-text {
+        color: #78350f;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
+/* ============================================
+   METADATA INDICATOR & HOVER TOOLTIP
+   ============================================ */
+
+/* Metadata indicator icon (hidden for cleaner paper) */
+.metadata-indicator {
+    display: none;
+}
+
+/* Hover tooltip */
+.metadata-tooltip {
+    position: absolute;
+    z-index: 1000;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 10px 25px -3px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    width: 360px;
+    max-width: calc(100vw - 40px);
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.metadata-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* Tooltip header with tabs */
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 8px 0 8px;
+    background: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.tooltip-tabs {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+.tooltip-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #6b7280;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px 6px 0 0;
+}
+
+.tooltip-tab:hover {
+    background: #f9fafb;
+    color: #374151;
+}
+
+.tooltip-tab.active {
+    background: #f9fafb;
+    color: var(--margin-line);
+    border-bottom-color: var(--margin-line);
+}
+
+.tab-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.tab-label {
+    font-weight: 500;
+}
+
+.tooltip-close {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.tooltip-close:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+}
+
+/* Tooltip body */
+.tooltip-body {
+    padding: 16px;
+    max-height: 50vh;
+    overflow-y: auto;
+    border-top: 1px solid #f3f4f6;
+}
+
+/* Tooltip content (tab panels) */
+.tooltip-content {
+    display: none;
+    animation: fadeIn 0.2s ease;
+}
+
+.tooltip-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tooltip-text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1f2937;
+    margin-bottom: 12px;
+    min-height: 40px;
+}
+
+/* Add to note button */
+.add-to-note-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--margin-line);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-to-note-btn:hover:not(:disabled) {
+    background: #b8941f;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(201, 165, 122, 0.3);
+}
+
+.add-to-note-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.add-to-note-btn.added {
+    background: #8b7355;
+    cursor: default;
+}
+
+.add-to-note-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.add-to-note-btn svg {
+    flex-shrink: 0;
+}
+
+/* User notes area */
+.user-notes {
+    margin-top: 16px;
+    padding: 12px;
+    background: #fffbeb;
+    border-left: 3px solid #f59e0b;
+    border-radius: 4px;
+}
+
+.added-note {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 8px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #fef3c7;
+}
+
+.added-note:last-child {
+    border-bottom: none;
+}
+
+.note-label {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 600;
+    color: #92400e;
+}
+
+.note-text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    color: #78350f;
+}
+
+/* Animation for newly added notes */
+@keyframes noteAdded {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.note-added-animation {
+    animation: noteAdded 0.3s ease;
+}
+
+/* Tooltip placement indicators */
+.metadata-tooltip[data-placement="right"]::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transform: rotate(45deg);
+}
+
+.metadata-tooltip[data-placement="left"]::before {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    transform: rotate(45deg);
+}
+
+.metadata-tooltip[data-placement="bottom"]::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    transform: rotate(45deg);
+}
+
+/* Responsive adjustments - Tablet (768px and below) */
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 12px 16px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    /* First row: Actions and Info */
+    .header-section:first-child {
+        flex: 0 0 auto;
+    }
+    
+    .header-info {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    
+    /* Second row: Options and Mode */
+    .header-section:nth-child(3),
+    .mode-toggle {
+        flex: 0 0 auto;
+    }
+    
+    .action-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+    
+    .topic-title {
+        font-size: 14px;
+    }
+    
+    .stats-display {
+        font-size: 11px;
+    }
+    
+    .mode-btn {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+    
+    .toggle-label {
+        font-size: 12px;
+    }
+}
+
+/* Responsive adjustments - Mobile (480px and below) */
+@media (max-width: 480px) {
+    .top-bar {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    /* Full width stacking */
+    .header-section:first-child,
+    .header-info,
+    .header-section:nth-child(3),
+    .mode-toggle {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+    
+    .header-section:first-child {
+        display: flex;
+        gap: 8px;
+    }
+    
+    .header-section:nth-child(3) {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .action-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .topic-title {
+        font-size: 13px;
+    }
+    
+    .stats-display {
+        font-size: 10px;
+    }
+    
+    .mode-btn {
+        flex: 1;
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .toggle-label {
+        font-size: 11px;
+    }
+    
+    .metadata-tooltip {
+        width: calc(100vw - 40px);
+    }
+    
+    .tooltip-body {
+        max-height: 40vh;
+    }
+    
+    .tooltip-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tooltip-tab {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .tab-icon {
+        font-size: 13px;
+    }
+}
+
+/* Metadata indicators hidden in both modes (using hover tooltips instead) */
+.metadata-indicator {
+    display: none;
+}
+
+/* ============================================
+   LIBRARY VIEW
+   ============================================ */
+.paper-sheet.library-mode {
+    background: var(--paper-bg);
+    background-image: none;
+    padding: 60px 50px;
+}
+
+.library-view {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.library-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.library-header h2 {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.library-header p {
+    font-family: var(--font-ui);
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.library-card {
+    background: white;
+    border: 2px solid #e0dcd7;
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.library-card:hover {
+    border-color: var(--margin-line);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.library-card.import-card {
+    border-style: dashed;
+    background: #fafaf9;
+}
+
+.library-card.import-card:hover {
+    background: #f5f3f0;
+}
+
+.card-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+/* Hide holes and margin line in library mode */
+.paper-sheet.library-mode .holes,
+.paper-sheet.library-mode .margin-line {
+    display: none;
+}
+
+@media (max-width: 850px) {
+    .library-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
+    }
+    
+    .library-card {
+        padding: 24px 16px;
+    }
+    
+    .card-icon {
+        font-size: 36px;
+    }
+    
+    .card-title {
+        font-size: 14px;
+    }
+}
