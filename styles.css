@@ -458,6 +458,48 @@ body {
     font-family: var(--font-heading);
 }
 
+/* Comparison tables (for client/server comparisons, etc.) */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--line-height) 0;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.comparison-table th {
+    background: #f9f7f4;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid var(--ruled-line);
+    width: 200px;
+    vertical-align: top;
+}
+
+.comparison-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid var(--ruled-line);
+    vertical-align: top;
+}
+
+.comparison-table tr:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* Exam mode table - simplified single column */
+.comparison-table.exam-table th {
+    display: none;
+}
+
+.comparison-table.exam-table td {
+    width: 100%;
+    background: white;
+    font-weight: 500;
+}
+
 /* Comparisons & Tables (legacy) */
 .block-comparison {
     position: relative;
@@ -666,7 +708,7 @@ mark-key, .mark-key {
     font-family: var(--font-heading);
     font-size: 18px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--margin-text);
     margin: 0 0 calc(var(--line-height) * 0.5) 0;
     line-height: var(--line-height);
 }
@@ -997,6 +1039,27 @@ mark-key, .mark-key {
     /* Ensure all text uses proper line height */
     p, li, div {
         line-height: var(--line-height);
+    }
+    
+    /* Preserve comparison tables */
+    .comparison-table {
+        page-break-inside: avoid;
+        border: 1px solid var(--ruled-line);
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .comparison-table th {
+        background: #f9f7f4;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        border: 1px solid var(--ruled-line);
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
     }
 }
 

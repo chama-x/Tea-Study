@@ -204,8 +204,10 @@ function renderBlock(block, topicMap = {}, renderedPaths = new Set()) {
                 pathBadge = `<div class="path-badge">${escapeHtml(parentPath)}</div>`;
             }
             
-            // Topic heading always shows
-            topicHeading = `<h3 class="topic-heading">${escapeHtml(currentTopic)}</h3>`;
+            // Topic heading shows for non-section blocks (sections use their own title)
+            if (blockType !== 'section') {
+                topicHeading = `<h3 class="topic-heading">${escapeHtml(currentTopic)}</h3>`;
+            }
         }
     }
     
@@ -278,11 +280,80 @@ function renderList(block, blockId, marginNote, criticalClass, levelClass, topic
     const listHeader = introText ? 
         `<div class="list-intro">${parseMarkdownBullets(introText)}</div>` : '';
     
-    // Parse items - format is "EXAM: ... | FULL: ..."
+    // Check if this is a comparison table (items with " | " separating multiple values)
+    const isComparisonTable = items.length > 0 && 
+                               items[0].includes(' | FULL:') && 
+                               items[0].split('|').length > 2;
+    
+    if (isComparisonTable) {
+        // Render as a table in both modes
+        const tableRows = items.map(item => {
+            const fullIndex = item.indexOf(' | FULL:');
+            if (fullIndex !== -1) {
+                const label = item.substring(0, fullIndex).replace(/^EXAM:\s*/i, '').trim();
+                const fullContent = item.substring(fullIndex).replace(/^\s*\|\s*FULL:\s*/i, '').trim();
+                
+                // Split the full content by " | " to get multiple columns
+                const columns = fullContent.split(' | ').map(col => col.trim());
+                
+                return {
+                    label: label,
+                    columns: columns
+                };
+            }
+            return null;
+        }).filter(row => row !== null);
+        
+        if (tableRows.length > 0) {
+            // In exam mode, show simplified single-column table
+            const tableHTML = isExamMode ? `
+                <table class="comparison-table exam-table">
+                    <tbody>
+                        ${tableRows.map(row => `
+                            <tr>
+                                <td>${formatText(row.label)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            ` : `
+                <table class="comparison-table">
+                    <tbody>
+                        ${tableRows.map(row => `
+                            <tr>
+                                <th>${formatText(row.label)}</th>
+                                ${row.columns.map(col => `<td>${formatText(col)}</td>`).join('')}
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            return `<div class="list-block ${criticalClass} ${levelClass}" data-id="${blockId}" ${topicAttr} ${metadataAttrs}>
+                ${marginNote}
+                ${pathBadge}
+                ${topicHeading}
+                ${metadataIndicator}
+                ${listHeader}
+                ${tableHTML}
+            </div>`;
+        }
+    }
+    
+    // Parse items as regular list - format is "EXAM: ... | FULL: ..."
     const parsedItems = items.map(item => {
         if (item.includes('|')) {
+            // Find the first occurrence of " | FULL:" to split correctly
+            const fullIndex = item.indexOf(' | FULL:');
+            if (fullIndex !== -1) {
+                const examPart = item.substring(0, fullIndex).replace(/^EXAM:\s*/i, '').trim();
+                const fullPart = item.substring(fullIndex).replace(/^\s*\|\s*FULL:\s*/i, '').trim();
+                return isExamMode ? examPart : fullPart;
+            }
+            
+            // Fallback to simple split if " | FULL:" not found
             const parts = item.split('|').map(p => p.trim());
-            if (parts.length === 2) {
+            if (parts.length >= 2) {
                 const examPart = parts[0].replace(/^EXAM:\s*/i, '').trim();
                 const fullPart = parts[1].replace(/^FULL:\s*/i, '').trim();
                 return isExamMode ? examPart : fullPart;
