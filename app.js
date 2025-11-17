@@ -1,9 +1,10 @@
 // State
 let currentData = null;
-let currentMode = localStorage.getItem('studyMode') || 'exam'; // Load saved mode or default to exam
+let currentMode = localStorage.getItem('studyMode') || 'full'; // Load saved mode or default to full
 let showTooltips = localStorage.getItem('showTooltips') === 'true'; // Default false unless explicitly set to true
 let showPaths = localStorage.getItem('showPaths') === 'true'; // Default false unless explicitly set to true
 let notesLibrary = [];
+let currentNotePath = null;
 
 // DOM
 const fileInput = document.getElementById('fileInput');
@@ -17,6 +18,9 @@ const togglePathsCheckbox = document.getElementById('togglePaths');
 
 // Events
 importBtn.addEventListener('click', () => {
+    // Clear current note when going back to library
+    currentNotePath = null;
+    localStorage.removeItem('currentNotePath');
     showLibraryView();
 });
 fileInput.addEventListener('change', handleImport);
@@ -1009,8 +1013,15 @@ async function loadNotesLibrary() {
         console.log('💡 Tip: Make sure you\'re running a local server or deployed to GitHub Pages');
     }
     
-    // Always show library view (even if empty)
-    showLibraryView();
+    // Check if there's a saved note to restore
+    const savedNotePath = localStorage.getItem('currentNotePath');
+    if (savedNotePath) {
+        console.log('📖 Restoring last opened note:', savedNotePath);
+        loadNoteFromPath(savedNotePath);
+    } else {
+        // Show library view if no saved note
+        showLibraryView();
+    }
 }
 
 // Load a specific note file
@@ -1019,6 +1030,8 @@ async function loadNoteFromPath(path) {
         const response = await fetch(path);
         if (response.ok) {
             const data = await response.json();
+            currentNotePath = path;
+            localStorage.setItem('currentNotePath', path);
             loadJSON(data);
             hideLibraryView();
         } else {
