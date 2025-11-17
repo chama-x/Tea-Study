@@ -132,10 +132,31 @@
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="app.js"></script>
     <script>
-        // Register Service Worker (only when served over HTTP/HTTPS)
+        // Register Service Worker with update detection
         if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
             navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('SW registered', reg))
+                .then(reg => {
+                    console.log('✅ Service Worker registered');
+                    
+                    // Check for updates every 60 seconds
+                    setInterval(() => {
+                        reg.update();
+                    }, 60000);
+                    
+                    // Detect when new version is available
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // New version available
+                                if (confirm('🎉 New version available! Reload to update?')) {
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    });
+                })
                 .catch(err => console.log('SW error', err));
         }
     </script>
