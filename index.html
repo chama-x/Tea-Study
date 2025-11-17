@@ -85,6 +85,50 @@
 
 
 
+    <!-- Legend/Help Button -->
+    <button id="legendBtn" class="legend-btn" aria-label="Show legend">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+    </button>
+
+    <!-- Legend Modal -->
+    <div id="legendModal" class="legend-modal">
+        <div class="legend-content">
+            <div class="legend-header">
+                <h3>📖 Reading Guide</h3>
+                <button class="legend-close" onclick="closeLegend()">×</button>
+            </div>
+            <div class="legend-body">
+                <div class="legend-section">
+                    <h4>Visual Guide</h4>
+                    <div class="legend-item">
+                        <span class="legend-sample key-sentence">Yellow highlight</span>
+                        <span class="legend-desc">Important to remember</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-sample exam-critical-sample">⚡ Lightning badge</span>
+                        <span class="legend-desc">Exam critical content</span>
+                    </div>
+                </div>
+                
+                <div class="legend-section">
+                    <h4>Study Modes</h4>
+                    <div class="legend-item">
+                        <span class="legend-sample">📝 Exam Mode</span>
+                        <span class="legend-desc">Only ⚡ content shown</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-sample">📚 Full Mode</span>
+                        <span class="legend-desc">All content shown</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="app.js"></script>
     <script>

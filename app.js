@@ -1137,6 +1137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadNotesLibrary();
     initHoverTooltips();
     initConfettiOnComplete();
+    initLegend();
 });
 
 
@@ -1238,3 +1239,41 @@ function initConfettiOnComplete() {
         window.removeEventListener('scroll', handleScroll);
     };
 }
+
+
+// Legend/Help Modal
+function initLegend() {
+    const legendBtn = document.getElementById('legendBtn');
+    const legendModal = document.getElementById('legendModal');
+    
+    if (!legendBtn || !legendModal) return;
+    
+    // Open legend
+    legendBtn.addEventListener('click', () => {
+        legendModal.classList.add('active');
+    });
+    
+    // Close legend when clicking outside
+    legendModal.addEventListener('click', (e) => {
+        if (e.target === legendModal) {
+            closeLegend();
+        }
+    });
+    
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && legendModal.classList.contains('active')) {
+            closeLegend();
+        }
+    });
+}
+
+function closeLegend() {
+    const legendModal = document.getElementById('legendModal');
+    if (legendModal) {
+        legendModal.classList.remove('active');
+    }
+}
+
+// Make closeLegend globally accessible
+window.closeLegend = closeLegend;
