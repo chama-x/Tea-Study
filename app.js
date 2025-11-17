@@ -977,15 +977,8 @@ function loadFromLocalStorage() {
 
 // Load notes library from /notes folder
 async function loadNotesLibrary() {
-    // Hardcoded list of available notes (most reliable for static sites)
-    const availableNotes = [
-        {
-            name: 'Information Systems',
-            path: 'notes/information-systems.json'
-        }
-    ];
+    notesLibrary = []; // Start with empty array
     
-    // Try to dynamically load from notes/index.html
     try {
         const indexResponse = await fetch('notes/index.html');
         if (indexResponse.ok) {
@@ -997,30 +990,26 @@ async function loadNotesLibrary() {
             if (links.length > 0) {
                 notesLibrary = Array.from(links).map(link => {
                     const href = link.getAttribute('href');
-                    const name = link.textContent.replace('.json', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    // Use the link text as the display name (allows custom names)
+                    const name = link.textContent.trim();
                     return {
                         name: name,
                         path: 'notes/' + href
                     };
                 });
-                console.log('Dynamically loaded notes:', notesLibrary);
+                console.log('✅ Loaded notes from notes/index.html:', notesLibrary);
             } else {
-                // Fallback to hardcoded list
-                notesLibrary = availableNotes;
-                console.log('Using hardcoded notes list');
+                console.log('⚠️ No .json files found in notes/index.html');
             }
         } else {
-            // Fallback to hardcoded list
-            notesLibrary = availableNotes;
-            console.log('Could not load notes/index.html, using hardcoded list');
+            console.log('⚠️ Could not load notes/index.html (Status:', indexResponse.status + ')');
         }
     } catch (error) {
-        // Fallback to hardcoded list
-        notesLibrary = availableNotes;
-        console.log('Error loading notes library, using hardcoded list:', error);
+        console.log('⚠️ Error loading notes library:', error.message);
+        console.log('💡 Tip: Make sure you\'re running a local server or deployed to GitHub Pages');
     }
     
-    // Always show library view
+    // Always show library view (even if empty)
     showLibraryView();
 }
 
