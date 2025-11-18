@@ -15,7 +15,8 @@
       "analogy": "A web browser is like a translator. The internet speaks in code (HTML, CSS), and the browser translates it into the visual language of websites, with text, images, and buttons you can understand.",
       "why_exists": "Early internet content was just text. To make it graphical and interactive, a special program was needed to read the code and 'draw' the webpage for the user.",
       "note": "Core concept",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Web Browsers"
     },
     {
       "id": 2,
@@ -38,7 +39,8 @@
       ],
       "note": "Key functions",
       "exam_critical": false,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Browser Capabilities"
     },
     {
       "id": 3,
@@ -54,7 +56,8 @@
       "why_exists": "Not all browsers are created equal. These criteria give users a framework to choose the best tool for their needs, as some might prioritize speed while others prioritize privacy.",
       "note": "Evaluation framework",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Browser Selection Criteria"
     },
     {
       "id": 4,
@@ -70,7 +73,8 @@
       "why_exists": "Websites are built with code, and different browsers can interpret that code slightly differently. Compatibility is the measure of how well a browser follows the standard rules so that pages look and work the same for everyone.",
       "note": "Does it work?",
       "exam_critical": false,
-      "parent": 3
+      "parent": 3,
+      "subtitle": "Compatibility and Capability"
     },
     {
       "id": 5,
@@ -86,7 +90,8 @@
       "why_exists": "A browser is a tool used daily by billions. If it's confusing or frustrating, people won't use it, no matter how powerful it is. Good design makes technology accessible.",
       "note": "Is it simple?",
       "exam_critical": false,
-      "parent": 3
+      "parent": 3,
+      "subtitle": "Ease of Use"
     },
     {
       "id": 6,
@@ -102,7 +107,8 @@
       "why_exists": "Users are impatient. A slow browser leads to a frustrating experience and can make people abandon a website. Performance is a critical factor for user satisfaction.",
       "note": "Is it fast?",
       "exam_critical": false,
-      "parent": 3
+      "parent": 3,
+      "subtitle": "Performance"
     },
     {
       "id": 7,
@@ -118,7 +124,8 @@
       "why_exists": "The internet can be a dangerous place with viruses, scams, and data theft. Browsers are the first line of defense, so they need strong, built-in security features to protect users.",
       "note": "Is it safe?",
       "exam_critical": true,
-      "parent": 3
+      "parent": 3,
+      "subtitle": "Security and Privacy"
     },
     {
       "id": 8,
@@ -140,7 +147,8 @@
       ],
       "note": "User-controlled security",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Browser Security Practices"
     },
     {
       "id": 9,
@@ -155,7 +163,8 @@
       "analogy": "A web server is like a library. The websites are the books, and your browser is the person asking the librarian (the server) for a specific book. The server finds the book and gives it to you to read.",
       "why_exists": "Websites need a permanent, publicly accessible place to store their files. A web server provides this centralized location and the necessary software to handle requests from users all over the world, 24/7.",
       "note": "Core concept",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Web Servers"
     },
     {
       "id": 10,
@@ -176,7 +185,8 @@
       ],
       "note": "Software vs Hardware",
       "exam_critical": true,
-      "parent": 9
+      "parent": 9,
+      "subtitle": "Server Software"
     },
     {
       "id": 11,
@@ -199,7 +209,8 @@
       ],
       "note": "Layered defense",
       "exam_critical": true,
-      "parent": 9
+      "parent": 9,
+      "subtitle": "Server Security Practices"
     },
     {
       "id": 12,
@@ -214,7 +225,8 @@
       "analogy": "Internet protocols are like the rules of the road for data. They dictate things like the speed limit, who has the right-of-way, and how to signal a turn, ensuring that data packets travel from source to destination without crashing.",
       "why_exists": "Without standardized rules, communication would be chaotic. Every computer manufacturer would have its own way of sending data, and nothing would be compatible. Protocols create a universal language for the internet.",
       "note": "Rules of communication",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Internet Protocols"
     },
     {
       "id": 13,
@@ -230,7 +242,8 @@
       "why_exists": "A simple, reliable method was needed to move entire files from one computer to another across the internet, especially for publishing content to the web. FTP was created specifically for this task.",
       "note": "Moving files",
       "exam_critical": true,
-      "parent": 12
+      "parent": 12,
+      "subtitle": "FTP"
     },
     {
       "id": 14,
@@ -246,7 +259,8 @@
       "why_exists": "While FTP is for transferring whole files, a different protocol was needed specifically for requesting and displaying interconnected 'hypertext' documents (web pages). HTTP was created to be the protocol for the web.",
       "note": "Request/Response cycle",
       "exam_critical": true,
-      "parent": 12
+      "parent": 12,
+      "subtitle": "HTTP"
     },
     {
       "id": 15,
@@ -262,7 +276,8 @@
       "why_exists": "A robust system was needed to send data reliably over a complex, global network where data packets could get lost or arrive out of order. TCP/IP solves this by breaking data down, addressing it, and verifying its arrival.",
       "note": "Internet's backbone",
       "exam_critical": true,
-      "parent": 12
+      "parent": 12,
+      "subtitle": "TCP/IP"
     }
   ]
 }

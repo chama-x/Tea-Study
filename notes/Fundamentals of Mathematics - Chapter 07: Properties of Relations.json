@@ -15,7 +15,8 @@
       "analogy": "It's like classifying vehicles. Some are cars, some are trucks, some are motorcycles. They all move people around, but we classify them based on their properties (number of wheels, engine size, purpose). We do the same for mathematical relations.",
       "why_exists": "To create a formal language for describing how elements in a set interact. This classification is the foundation for more complex concepts like ordering and equivalence.",
       "note": "Core Concepts",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Properties of Relations"
     },
     {
       "id": 2,
@@ -31,7 +32,8 @@
       "why_exists": "To define relations where self-identity is an inherent part of the relationship, such as equality (=) or 'is a subset of' (⊆), which are foundational in mathematics and logic.",
       "note": "Must relate to self",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Reflexive Relations"
     },
     {
       "id": 3,
@@ -45,7 +47,8 @@
       "analogy": "It's like asking if everyone in your family has the same last name as themselves. Of course, they do. The 'less than or equal to' rule always works for a number and itself.",
       "why_exists": "To provide a concrete case of a reflexive relation that is defined by a mathematical rule rather than an explicit list of pairs.",
       "exam_critical": false,
-      "parent": 2
+      "parent": 2,
+      "subtitle": "Example: '≤' Relation"
     },
     {
       "id": 4,
@@ -60,7 +63,8 @@
       "why_exists": "To show a counter-example and emphasize that the reflexive property must hold for every element in the set without exception.",
       "note": "Common mistake",
       "exam_critical": false,
-      "parent": 2
+      "parent": 2,
+      "subtitle": "Example: Non-Reflexive Relation"
     },
     {
       "id": 5,
@@ -76,7 +80,8 @@
       "why_exists": "To formally describe relationships that are mutual or reciprocal, a common pattern found in social networks ('is friends with'), geometry ('is perpendicular to'), and logic ('is equivalent to').",
       "note": "Two-way street",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Symmetric Relations"
     },
     {
       "id": 6,
@@ -90,7 +95,8 @@
       "analogy": "It's like the relationship 'is older than'. If your dad is older than you, are you older than your dad? No. It's a one-way relationship, not a symmetric one.",
       "why_exists": "To show a common and intuitive example of a relation that is directional and therefore fails the symmetry test.",
       "exam_critical": false,
-      "parent": 5
+      "parent": 5,
+      "subtitle": "Example: Not Symmetric"
     },
     {
       "id": 7,
@@ -106,7 +112,8 @@
       "why_exists": "To define ordering relationships like 'less than or equal to' or 'is a subset of'. These relations must be strictly one-way for distinct elements, and antisymmetry formally captures this idea.",
       "note": "One-way street",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Antisymmetric Relations"
     },
     {
       "id": 8,
@@ -120,7 +127,8 @@
       "analogy": "It's like the relationship 'is a biological ancestor of'. If your grandfather is your ancestor, you can't also be his ancestor. The relationship cannot go both ways for two different people.",
       "why_exists": "To show how the common 'less than or equal to' operator is a perfect real-world example of the abstract concept of antisymmetry.",
       "exam_critical": false,
-      "parent": 7
+      "parent": 7,
+      "subtitle": "Example: '≤' is Antisymmetric"
     },
     {
       "id": 9,
@@ -136,7 +144,8 @@
       "why_exists": "To model chains of relationships, such as inheritance ('is an ancestor of'), ordering ('is less than'), or logical implication ('if A implies B, and B implies C, then A implies C').",
       "note": "Chain property",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Transitive Relations"
     },
     {
       "id": 10,
@@ -150,7 +159,8 @@
       "analogy": "It's like a set of Russian nesting dolls. If doll A fits inside doll B, and doll B fits inside doll C, then you know for sure that doll A will fit inside doll C.",
       "why_exists": "To demonstrate with a very common mathematical operator ('≤') how the transitive property works in practice.",
       "exam_critical": false,
-      "parent": 9
+      "parent": 9,
+      "subtitle": "Example: '≤' is Transitive"
     },
     {
       "id": 11,
@@ -166,7 +176,8 @@
       "why_exists": "To formalize the idea of ordering and hierarchy. This concept is crucial in computer science for things like task scheduling, data structure organization (trees), and version control.",
       "note": "R + A + T",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Partial Order"
     },
     {
       "id": 12,
@@ -182,7 +193,8 @@
       "why_exists": "To distinguish between partial orderings where some elements are unrelated (like a family tree) and those where all elements can be lined up in a sequence (like numbers on a number line or words in a dictionary).",
       "note": "All elements comparable",
       "exam_critical": true,
-      "parent": 11
+      "parent": 11,
+      "subtitle": "Total Order"
     },
     {
       "id": 13,
@@ -198,7 +210,8 @@
       "why_exists": "To formally define the concept of reversing a relationship, which is useful in many areas, such as database queries (finding students for a course vs. finding courses for a student) or reversing a mapping.",
       "note": "Flip the pairs",
       "exam_critical": false,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Inverse Relation"
     },
     {
       "id": 14,
@@ -213,7 +226,8 @@
       "analogy": "It's like sorting laundry. You put all the socks in one pile, all the shirts in another. Within the sock pile, every sock is 'equivalent' to every other sock (they're all socks). The sorting rule creates groups of equivalent items.",
       "why_exists": "To mathematically formalize the idea of 'sameness' or 'equivalence'. This allows us to group elements of a set into classes where all elements in a class share a common property, simplifying complex sets.",
       "note": "Groups similar items",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Equivalence Relations"
     },
     {
       "id": 15,
@@ -229,7 +243,8 @@
       "why_exists": "This specific combination of properties (R+S+T) perfectly captures our intuitive notion of what it means for things to be 'the same' in some respect, allowing us to formally group and classify objects.",
       "note": "R + S + T",
       "exam_critical": true,
-      "parent": 14
+      "parent": 14,
+      "subtitle": "Definition"
     },
     {
       "id": 16,
@@ -243,7 +258,8 @@
       "analogy": "This relation effectively groups numbers into two families: {1, 3, 5} and {2, 4}. Within the {1, 3, 5} family, everyone is related to everyone else (and themselves). The same is true for the {2, 4} family. This setup satisfies all three rules for an equivalence relation.",
       "why_exists": "To provide a concrete, non-trivial example of an equivalence relation and show how to verify the three required properties on an explicit set of pairs.",
       "exam_critical": false,
-      "parent": 15
+      "parent": 15,
+      "subtitle": "Example"
     }
   ]
 }

@@ -13,7 +13,8 @@
       "key_sentence": "Information Systems are fundamental to how modern organizations operate, from small businesses to global corporations.",
       "simple_explanation": "Think of an information system as the brain and nervous system of a company. It takes in raw facts, organizes them into something useful, and helps people make smart decisions.",
       "title": "Fundamentals of Information Systems",
-      "why_exists": "To formalize the study of how technology, people, and processes work together to manage a company's most valuable asset: its information."
+      "why_exists": "To formalize the study of how technology, people, and processes work together to manage a company's most valuable asset: its information.",
+      "subtitle": "Fundamentals of Information Systems"
     },
     {
       "id": 2,
@@ -28,7 +29,8 @@
       "note": "Core definition",
       "parent": 1,
       "simple_explanation": "It's a combination of tech, people, and rules that work together to turn raw facts into useful information that helps an organization achieve its goals, like a cash register system helping a store track sales.",
-      "why_exists": "Organizations needed a structured way to handle vast amounts of data, turn it into useful information, and use that information to operate efficiently and make better decisions."
+      "why_exists": "Organizations needed a structured way to handle vast amounts of data, turn it into useful information, and use that information to operate efficiently and make better decisions.",
+      "subtitle": "Information System Definition"
     },
     {
       "id": 3,
@@ -48,7 +50,8 @@
       "note": "DIKW hierarchy",
       "parent": 1,
       "simple_explanation": "Data is just a random number like '75'. Information is that number with meaning, like 'Your test score was 75'. Knowledge is realizing 'A 75 is a C grade, so I need to study more for the next test'.",
-      "why_exists": "This model was created to explain how raw, meaningless facts are transformed into actionable insights that provide value to a business."
+      "why_exists": "This model was created to explain how raw, meaningless facts are transformed into actionable insights that provide value to a business.",
+      "subtitle": "DIKW Pyramid"
     },
     {
       "id": 4,
@@ -63,7 +66,8 @@
       "note": "Why IS matters",
       "parent": 1,
       "simple_explanation": "Good information helps you make good choices, like knowing a storm is coming so you bring an umbrella. Bad information leads to bad choices, like a weather forecast saying it's sunny when it's about to rain.",
-      "why_exists": "To emphasize that the goal of an information system isn't just to store data, but to produce high-quality information that actively helps the business succeed."
+      "why_exists": "To emphasize that the goal of an information system isn't just to store data, but to produce high-quality information that actively helps the business succeed.",
+      "subtitle": "Value of Information"
     },
     {
       "id": 5,
@@ -78,7 +82,8 @@
       "note": "Input-Process-Output",
       "parent": 1,
       "simple_explanation": "A system is like a team with a specific job. It takes in stuff (input), does something to it (processing), and produces a result (output). For example, a toaster takes in bread, heats it, and outputs toast.",
-      "why_exists": "This concept provides a universal framework for understanding how different parts (whether mechanical, biological, or digital) work together to accomplish a task."
+      "why_exists": "This concept provides a universal framework for understanding how different parts (whether mechanical, biological, or digital) work together to accomplish a task.",
+      "subtitle": "System Definition"
     },
     {
       "id": 6,
@@ -100,7 +105,8 @@
       "note": "5 core components",
       "parent": 1,
       "simple_explanation": "An information system is like a video game. You need a console (hardware), the game itself (software), your save file (data), an internet connection for multiplayer (network), and you as the player (human).",
-      "why_exists": "This framework breaks down a complex information system into understandable parts, which helps in designing, building, and troubleshooting them."
+      "why_exists": "This framework breaks down a complex information system into understandable parts, which helps in designing, building, and troubleshooting them.",
+      "subtitle": "Information System Components"
     },
     {
       "id": 7,
@@ -115,7 +121,8 @@
       "note": "Key difference",
       "parent": 1,
       "simple_explanation": "An open system is like a store with an 'Open' sign; customers come in and out. A closed system is like a piggy bank with no hole to take money out; it's completely sealed off.",
-      "why_exists": "This classification helps analyze how dependent a system is on external factors, which is crucial for understanding risks and opportunities in business."
+      "why_exists": "This classification helps analyze how dependent a system is on external factors, which is crucial for understanding risks and opportunities in business.",
+      "subtitle": "System Types"
     },
     {
       "id": 8,
@@ -128,7 +135,8 @@
       "key_sentence": "In any organization, Information Systems are not just a technical utility; they are a strategic asset that fulfills several critical business roles.",
       "simple_explanation": "Information systems are the super-tools that businesses use to get work done. They help with everything from daily tasks like tracking sales to big-picture goals like beating the competition.",
       "title": "Role of IS in Organizations",
-      "why_exists": "To categorize the various ways that information systems create value for a business, moving beyond the simple idea of 'computerizing' tasks."
+      "why_exists": "To categorize the various ways that information systems create value for a business, moving beyond the simple idea of 'computerizing' tasks.",
+      "subtitle": "Role of IS in Organizations"
     },
     {
       "id": 9,
@@ -151,7 +159,8 @@
       "note": "6 core functions",
       "parent": 8,
       "simple_explanation": "Information systems help businesses in six main ways: running the daily grind, talking to customers, making smart choices, working in teams, beating competitors, and helping each employee work faster.",
-      "why_exists": "This framework was developed to provide a clear, comprehensive overview of the business value and strategic importance of investing in information technology."
+      "why_exists": "This framework was developed to provide a clear, comprehensive overview of the business value and strategic importance of investing in information technology.",
+      "subtitle": "Six Major Roles"
     },
     {
       "id": 10,
@@ -164,7 +173,8 @@
       "key_sentence": "Each level of management has distinct responsibilities, makes different types of decisions, and relies on specific kinds of Information Systems to perform its functions effectively.",
       "simple_explanation": "A company has different levels of bosses, like players, coaches, and the team owner. Each level needs different information to do their job, so they use different computer systems.",
       "title": "IS and Management Levels",
-      "why_exists": "To align the design and function of information systems with the specific needs of different managerial roles within an organization, ensuring the right information gets to the right people."
+      "why_exists": "To align the design and function of information systems with the specific needs of different managerial roles within an organization, ensuring the right information gets to the right people.",
+      "subtitle": "IS and Management Levels"
     },
     {
       "id": 11,
@@ -179,7 +189,8 @@
       "note": "Pyramid of IS",
       "parent": 10,
       "simple_explanation": "Imagine a pyramid: At the bottom are the daily workers (Operational) making simple, repetitive decisions with systems that track transactions (TPS). In the middle are managers (Tactical) who use summary reports (MIS) for monthly plans. At the top are the CEOs (Strategic) who use advanced tools (DSS) to make big, risky decisions about the company's future.",
-      "why_exists": "This model provides a clear way to understand that not all decisions are the same and that different levels of an organization require specialized information systems tailored to their needs."
+      "why_exists": "This model provides a clear way to understand that not all decisions are the same and that different levels of an organization require specialized information systems tailored to their needs.",
+      "subtitle": "Management Pyramid"
     },
     {
       "id": 12,
@@ -202,7 +213,8 @@
       "note": "Executive functions",
       "parent": 10,
       "simple_explanation": "The top bosses (like the CEO) are the ones who decide the company's main goals, like 'We want to be the #1 smartphone company in the world.' They make the big-picture plans.",
-      "why_exists": "To define the leadership function responsible for steering the entire organization and ensuring its long-term survival and growth."
+      "why_exists": "To define the leadership function responsible for steering the entire organization and ensuring its long-term survival and growth.",
+      "subtitle": "Roles"
     },
     {
       "id": 13,
@@ -225,7 +237,8 @@
       "note": "The crucial link",
       "parent": 10,
       "simple_explanation": "Middle managers are the link between the top bosses and the daily workers. They take the big goal from the CEO (e.g., 'sell more phones') and turn it into a specific plan for their team (e.g., 'our department needs to run a new ad campaign').",
-      "why_exists": "To translate high-level strategy into actionable plans and to coordinate the work of front-line teams to ensure that organizational goals are met."
+      "why_exists": "To translate high-level strategy into actionable plans and to coordinate the work of front-line teams to ensure that organizational goals are met.",
+      "subtitle": "Roles"
     },
     {
       "id": 14,
@@ -248,7 +261,8 @@
       "note": "Front-line leadership",
       "parent": 10,
       "simple_explanation": "These are the team leaders or supervisors who manage the people actually doing the work. They make sure everyone knows what to do today, has the tools they need, and is doing a good job.",
-      "why_exists": "To provide direct supervision, guidance, and support to front-line employees, ensuring that daily tasks are completed efficiently and to the required standard."
+      "why_exists": "To provide direct supervision, guidance, and support to front-line employees, ensuring that daily tasks are completed efficiently and to the required standard.",
+      "subtitle": "Roles"
     }
   ]
 }

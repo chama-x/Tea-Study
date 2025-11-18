@@ -15,7 +15,8 @@
       "note": "Course Overview",
       "simple_explanation": "This is about how websites work. We'll look at your computer (the client) asking for a website from a big computer (the server), and the difference between a simple, unchanging webpage and a complex, interactive one like Facebook.",
       "title": "Static Vs Dynamic Web Pages",
-      "why_exists": "To understand how the web works, you need to know the basic building blocks: who asks for information, who provides it, and the different ways that information can be prepared."
+      "why_exists": "To understand how the web works, you need to know the basic building blocks: who asks for information, who provides it, and the different ways that information can be prepared.",
+      "subtitle": "Foundations of Web Technologies"
     },
     {
       "id": 2,
@@ -31,7 +32,8 @@
       "parent": 1,
       "simple_explanation": "Imagine you're at a restaurant. You (the client) order food from the waiter. The kitchen (the server) prepares your order and sends it back to you. The internet works the same way: your browser orders a webpage, and a server prepares and sends it.",
       "title": "The Client/Server Model",
-      "why_exists": "This model was created to efficiently distribute tasks between computers. Instead of one giant computer doing everything, specialized servers can handle many requests from many different clients."
+      "why_exists": "This model was created to efficiently distribute tasks between computers. Instead of one giant computer doing everything, specialized servers can handle many requests from many different clients.",
+      "subtitle": "The Client/Server Model"
     },
     {
       "id": 3,
@@ -47,7 +49,8 @@
       "parent": 2,
       "simple_explanation": "The 'client' is just your web browser app, like Chrome or Safari. Its job is to ask for websites and show them to you.",
       "title": "Web Client",
-      "why_exists": "Users needed a simple application to navigate the web, interpret HTML code, and display it in a user-friendly format. The web browser was created for this purpose."
+      "why_exists": "Users needed a simple application to navigate the web, interpret HTML code, and display it in a user-friendly format. The web browser was created for this purpose.",
+      "subtitle": "Web Client"
     },
     {
       "id": 4,
@@ -63,7 +66,8 @@
       "parent": 2,
       "simple_explanation": "The 'server' is a powerful computer that's on 24/7, holding all the files for a website. When you type a web address, you're sending a message to that computer, and it sends the website files back to your browser.",
       "title": "Web Server",
-      "why_exists": "Websites needed a central, reliable place to be stored and accessed by anyone on the internet at any time. A dedicated, always-on server computer fulfills this need."
+      "why_exists": "Websites needed a central, reliable place to be stored and accessed by anyone on the internet at any time. A dedicated, always-on server computer fulfills this need.",
+      "subtitle": "Web Server"
     },
     {
       "id": 5,
@@ -79,7 +83,8 @@
       "parent": 1,
       "simple_explanation": "A static page is like a printed flyer—everyone gets the same one. A dynamic page is like your Instagram feed—it's custom-built just for you with the latest posts every time you open the app.",
       "title": "Static vs. Dynamic Web Pages",
-      "why_exists": "While static pages are simple and fast, the web needed a way to show changing information (like news headlines or social media posts) and interact with users, which led to the development of dynamic pages."
+      "why_exists": "While static pages are simple and fast, the web needed a way to show changing information (like news headlines or social media posts) and interact with users, which led to the development of dynamic pages.",
+      "subtitle": "Static vs. Dynamic Web Pages"
     },
     {
       "id": 6,
@@ -95,7 +100,8 @@
       "parent": 5,
       "simple_explanation": "A static page is like a PDF or a Word document saved on a server. When you ask for it, the server just sends you that exact file. It's simple, fast, and the same for everyone.",
       "title": "Static Web Pages",
-      "why_exists": "This was the original way web pages were made. It's a simple, fast, and efficient way to deliver information that doesn't need to change often, like an 'About Us' page or a blog post."
+      "why_exists": "This was the original way web pages were made. It's a simple, fast, and efficient way to deliver information that doesn't need to change often, like an 'About Us' page or a blog post.",
+      "subtitle": "Static Web Pages"
     },
     {
       "id": 7,
@@ -111,7 +117,8 @@
       "parent": 5,
       "simple_explanation": "A dynamic page is like a custom report. When you ask for it, a program runs, pulls the latest info (like your latest emails or the current weather), and builds a unique page just for you, right at that moment.",
       "title": "Dynamic Web Pages",
-      "why_exists": "Websites needed to be more than just digital brochures. They needed to handle user logins, display real-time data, and provide personalized experiences, which is impossible with static pages."
+      "why_exists": "Websites needed to be more than just digital brochures. They needed to handle user logins, display real-time data, and provide personalized experiences, which is impossible with static pages.",
+      "subtitle": "Dynamic Web Pages"
     },
     {
       "id": 8,
@@ -127,7 +134,8 @@
       "parent": 1,
       "simple_explanation": "Imagine building a LEGO set. 'Server-side' is when the LEGO factory builds the model for you and ships you the finished product. 'Client-side' is when the factory ships you the box of bricks and the instructions, and you build it yourself at home.",
       "title": "Client-Side vs. Server-Side Scripting",
-      "why_exists": "Some tasks are better handled by the user's powerful computer (like animations), while others must be handled securely on the server (like processing a payment). This division of labor makes websites both efficient and secure."
+      "why_exists": "Some tasks are better handled by the user's powerful computer (like animations), while others must be handled securely on the server (like processing a payment). This division of labor makes websites both efficient and secure.",
+      "subtitle": "Client-Side vs. Server-Side Scripting"
     },
     {
       "id": 9,
@@ -143,7 +151,8 @@
       "parent": 8,
       "simple_explanation": "This is code that runs on your own computer inside your browser. It's used for all the cool interactive stuff on a page, like checking if you entered a valid email in a form or making a menu pop up when you click it.",
       "title": "Client-Side Scripting",
-      "why_exists": "To make web pages feel more like applications and less like static documents. It offloads simple tasks to the user's computer, reducing server load and making the user experience faster and more responsive."
+      "why_exists": "To make web pages feel more like applications and less like static documents. It offloads simple tasks to the user's computer, reducing server load and making the user experience faster and more responsive.",
+      "subtitle": "Client-Side Scripting"
     },
     {
       "id": 10,
@@ -159,7 +168,8 @@
       "parent": 8,
       "simple_explanation": "This is code that runs on the website's main computer (the server). It does the heavy lifting, like logging you in, fetching your data from a database, and building a custom webpage for you. Your browser only gets the final result.",
       "title": "Server-Side Scripting",
-      "why_exists": "To handle tasks that require security (like passwords), access to centralized resources (like a database), or complex logic that shouldn't be exposed to the user."
+      "why_exists": "To handle tasks that require security (like passwords), access to centralized resources (like a database), or complex logic that shouldn't be exposed to the user.",
+      "subtitle": "Server-Side Scripting"
     },
     {
       "id": 11,
@@ -183,7 +193,8 @@
       "parent": 8,
       "simple_explanation": "Server-side is for secret, heavy-duty stuff like checking passwords and getting data. Client-side is for fast, visible stuff that makes the page interactive, like form checks and animations.",
       "title": "Comparison: Server-Side vs. Client-Side Scripting",
-      "why_exists": "Developers need a clear understanding of the trade-offs to build efficient and secure web applications, using each type of scripting for what it does best."
+      "why_exists": "Developers need a clear understanding of the trade-offs to build efficient and secure web applications, using each type of scripting for what it does best.",
+      "subtitle": "Comparison"
     },
     {
       "id": 12,
@@ -203,7 +214,8 @@
       "parent": 8,
       "simple_explanation": "Use client-side (JavaScript) when you want to make your website fun and easy to use without waiting for the server. Use server-side (PHP, Python) when you need to do serious, secure work like handling logins or saving data.",
       "title": "Which Should I Use? Client- or Server-Side?",
-      "why_exists": "To provide a clear guide for developers on how to structure their applications, ensuring that tasks are performed in the most appropriate, efficient, and secure location."
+      "why_exists": "To provide a clear guide for developers on how to structure their applications, ensuring that tasks are performed in the most appropriate, efficient, and secure location.",
+      "subtitle": "Use Cases"
     }
   ]
 }

@@ -15,7 +15,8 @@
       "analogy": "A set is like your group of friends. It doesn't matter in what order you list their names; it's still the same group. Each friend is an 'element' of the set.",
       "why_exists": "To create a simple, formal way to group related items together. By ignoring order and duplicates, mathematicians can focus on the core question of whether an item belongs to a group or not.",
       "note": "Core Concept",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Sets"
     },
     {
       "id": 2,
@@ -31,7 +32,8 @@
       "why_exists": "To establish a clear and universal notation for stating whether an object belongs to a particular collection, which is the most fundamental question in set theory.",
       "note": "Basic Notation",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Definition"
     },
     {
       "id": 3,
@@ -47,7 +49,8 @@
       "why_exists": "To provide a simple, direct, and unambiguous way to define small sets where all elements can be easily written out.",
       "note": "Listing members",
       "exam_critical": false,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Roster Method"
     },
     {
       "id": 4,
@@ -63,7 +66,8 @@
       "why_exists": "The roster method is impossible for infinite sets (like all even numbers). Set builder notation provides a concise and powerful way to define these sets by their shared properties.",
       "note": "Defining by rule",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Set Builder Notation"
     },
     {
       "id": 5,
@@ -88,7 +92,8 @@
       ],
       "note": "Must memorize",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Common Number Sets"
     },
     {
       "id": 6,
@@ -104,7 +109,8 @@
       "why_exists": "To provide a compact and clear way to represent continuous ranges of numbers without having to write out full inequalities every time.",
       "note": "Range notation",
       "exam_critical": true,
-      "parent": 5
+      "parent": 5,
+      "subtitle": "Intervals"
     },
     {
       "id": 7,
@@ -120,7 +126,8 @@
       "why_exists": "To formally define what it means for two collections to be identical, focusing only on membership and ignoring superficial differences like ordering or duplication.",
       "note": "Order/reps irrelevant",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Set Equality"
     },
     {
       "id": 8,
@@ -135,7 +142,8 @@
       "analogy": "The set of all 'Golden Retrievers' is a subset of the larger set of all 'Dogs', because every Golden Retriever is also a Dog.",
       "why_exists": "To formally describe the relationship where one set is entirely contained within another, which is a fundamental concept for comparing, classifying, and structuring sets.",
       "note": "Set Containment",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Subsets"
     },
     {
       "id": 9,
@@ -155,7 +163,8 @@
       ],
       "note": "Proof strategy",
       "exam_critical": false,
-      "parent": 8
+      "parent": 8,
+      "subtitle": "Proof Methods"
     },
     {
       "id": 10,
@@ -171,7 +180,8 @@
       "why_exists": "To establish foundational rules about subsets that are always true and to provide a rigorous, step-by-step method for proving that two distinct-looking sets are actually identical.",
       "note": "Key Proof Technique",
       "exam_critical": true,
-      "parent": 8
+      "parent": 8,
+      "subtitle": "Fundamental Theorems"
     },
     {
       "id": 11,
@@ -187,7 +197,8 @@
       "why_exists": "To create a formal mathematical way to measure and compare the 'size' of different sets.",
       "note": "Counting Elements",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Cardinality"
     },
     {
       "id": 12,
@@ -203,7 +214,8 @@
       "why_exists": "To create a 'set of sets' that represents every possible combination or grouping of elements from an original set, which is crucial in areas like combinatorics, probability, and computer science.",
       "note": "Set of all subsets",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Power Set"
     },
     {
       "id": 13,
@@ -218,7 +230,8 @@
       "analogy": "Think of a restaurant menu with a 'Choose 1 Main, 1 Side' deal. The Cartesian product is the complete list of every single possible meal combination, like {Steak, Fries}, {Steak, Salad}, {Chicken, Fries}, {Chicken, Salad}.",
       "why_exists": "To create a mathematical structure for ordered pairings, which is the foundation for defining coordinates in geometry, relations in databases, and functions in algebra.",
       "note": "Ordered Pairings",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Cartesian Products"
     },
     {
       "id": 14,
@@ -234,7 +247,8 @@
       "why_exists": "To represent collections where the position of each element has a specific meaning (like x and y coordinates), which standard sets (being unordered) cannot do.",
       "note": "Order matters!",
       "exam_critical": true,
-      "parent": 13
+      "parent": 13,
+      "subtitle": "Ordered n-tuple"
     },
     {
       "id": 15,
@@ -250,7 +264,8 @@
       "why_exists": "To provide a formal mathematical definition for the operation of creating a comprehensive set of all possible ordered pairs between two source sets.",
       "note": "Formal definition",
       "exam_critical": true,
-      "parent": 13
+      "parent": 13,
+      "subtitle": "Definition"
     },
     {
       "id": 16,
@@ -266,7 +281,8 @@
       "why_exists": "To highlight a crucial property that distinguishes the Cartesian product from operations like addition or multiplication of numbers, where order does not change the result.",
       "note": "A × B ≠ B × A",
       "exam_critical": false,
-      "parent": 15
+      "parent": 15,
+      "subtitle": "Commutativity"
     },
     {
       "id": 17,
@@ -282,7 +298,8 @@
       "why_exists": "To formally model real-world relationships. The Cartesian product gives all *potential* pairings, and a relation specifies which of those pairings actually *exist* according to some rule or observation.",
       "note": "Subset of A × B",
       "exam_critical": true,
-      "parent": 13
+      "parent": 13,
+      "subtitle": "Relations"
     },
     {
       "id": 18,
@@ -297,7 +314,8 @@
       "analogy": "Think of Venn diagrams. You can merge the circles (union), find their overlapping area (intersection), or look at the part of one circle that doesn't overlap with the other (difference).",
       "why_exists": "To provide a formal algebra for manipulating sets. This allows for the construction of complex sets from simpler ones and for expressing logical relationships between different groups.",
       "note": "Set Algebra",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Set Operations"
     },
     {
       "id": 19,
@@ -313,7 +331,8 @@
       "why_exists": "To define the fundamental operation of combining two sets into a single, larger set that encompasses all members of both original sets.",
       "note": "Combining sets",
       "exam_critical": true,
-      "parent": 18
+      "parent": 18,
+      "subtitle": "Union"
     },
     {
       "id": 20,
@@ -329,7 +348,8 @@
       "why_exists": "To define the fundamental operation of finding the common elements that are shared between two or more sets.",
       "note": "Finding overlap",
       "exam_critical": true,
-      "parent": 18
+      "parent": 18,
+      "subtitle": "Intersection"
     },
     {
       "id": 21,
@@ -345,7 +365,8 @@
       "why_exists": "To formally describe the specific case where two sets are mutually exclusive, which is a critical property in probability, logic, and data partitioning.",
       "note": "No common elements",
       "exam_critical": false,
-      "parent": 20
+      "parent": 20,
+      "subtitle": "Disjoint Sets"
     },
     {
       "id": 22,
@@ -361,7 +382,8 @@
       "why_exists": "To define the operation of removing elements of one set from another, which is essential for filtering data, isolating unique elements, and expressing logical conditions.",
       "note": "Subtraction for sets",
       "exam_critical": true,
-      "parent": 18
+      "parent": 18,
+      "subtitle": "Difference"
     },
     {
       "id": 23,
@@ -377,7 +399,8 @@
       "why_exists": "To formally define the concept of 'everything else' or 'not in this set' relative to a larger context (the universal set), which is crucial for logical negation.",
       "note": "Everything else",
       "exam_critical": true,
-      "parent": 18
+      "parent": 18,
+      "subtitle": "Complement"
     },
     {
       "id": 24,
@@ -405,7 +428,8 @@
       ],
       "note": "Key Formulas",
       "exam_critical": true,
-      "parent": 18
+      "parent": 18,
+      "subtitle": "Set Identities"
     },
     {
       "id": 25,
@@ -421,7 +445,8 @@
       "why_exists": "To provide a concise notation for applying union and intersection to an entire family of sets (not just a pair), which is common in higher-level mathematics and data analysis.",
       "note": "Operations on many sets",
       "exam_critical": false,
-      "parent": 18
+      "parent": 18,
+      "subtitle": "Generalized Operations"
     }
   ]
 }

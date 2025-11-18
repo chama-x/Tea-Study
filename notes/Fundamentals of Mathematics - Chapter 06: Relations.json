@@ -15,7 +15,8 @@
       "analogy": "It's like your phone's contact list. You have a set of 'Names' and a set of 'Phone Numbers'. The relation is what pairs each name with its correct number.",
       "why_exists": "To create a formal, mathematical way to describe and analyze connections between different groups of objects, which is fundamental for databases, networking, and programming logic.",
       "note": "Core concept",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Relations"
     },
     {
       "id": 2,
@@ -31,7 +32,8 @@
       "why_exists": "This definition provides a precise, mathematical way to work with relationships. By defining a relation as a set of pairs, we can use all the tools of set theory to analyze it.",
       "note": "Mathematical definition",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Formal Definition"
     },
     {
       "id": 3,
@@ -47,7 +49,8 @@
       "why_exists": "This demonstrates how a real-world concept like a class roster can be translated into a formal mathematical set, which can then be analyzed.",
       "note": "Concrete application",
       "exam_critical": false,
-      "parent": 2
+      "parent": 2,
+      "subtitle": "Student-Course Example"
     },
     {
       "id": 4,
@@ -63,7 +66,8 @@
       "why_exists": "This example shows that relations aren't just for static data tables; they can be defined by logical or mathematical rules that generate the connections.",
       "note": "Rule-based relation",
       "exam_critical": false,
-      "parent": 2
+      "parent": 2,
+      "subtitle": "Divisibility Example"
     },
     {
       "id": 5,
@@ -79,7 +83,8 @@
       "why_exists": "To illustrate that relations can describe connections within a single set, not just between two different sets. This is crucial for concepts like order, hierarchy, and equivalence.",
       "note": "Relation on a set",
       "exam_critical": false,
-      "parent": 2
+      "parent": 2,
+      "subtitle": "'Less Than or Equal To' Example"
     },
     {
       "id": 6,
@@ -101,7 +106,8 @@
         "EXAM: Pair (2, 2) | FULL: The pair (2,2) is in **R1** (2≤2), **R3** (2=2), and **R4** (2=2)."
       ],
       "exam_critical": false,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Exercises"
     },
     {
       "id": 7,
@@ -117,7 +123,8 @@
       "why_exists": "This formula is used to understand the combinatorial vastness of relations. It shows how quickly the number of ways to connect elements in a set grows, which is important in computer science for estimating complexity.",
       "note": "Exam formula",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Number of Possible Relations"
     }
   ]
 }

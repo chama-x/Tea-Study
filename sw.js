@@ -1,5 +1,5 @@
 // Update this version number whenever you make changes
-const CACHE_VERSION = "v2.0.6";
+const CACHE_VERSION = "v2.1.1";
 const CACHE_NAME = `study-notes-${CACHE_VERSION}`;
 
 const urlsToCache = ["/", "/index.html", "/styles.css", "/manifest.json"];
@@ -40,12 +40,17 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Never cache app.js - always fetch fresh to avoid stale code
-  if (event.request.url.includes("/app.js")) {
+  // Never cache app.js or JSON files - always fetch fresh to avoid stale code/data
+  if (event.request.url.includes("/app.js") || event.request.url.endsWith(".json")) {
     event.respondWith(
       fetch(event.request, { cache: "no-store" }).catch(() => {
-        return new Response("console.error('Failed to load app.js')", {
-          headers: { "Content-Type": "application/javascript" },
+        if (event.request.url.includes("/app.js")) {
+          return new Response("console.error('Failed to load app.js')", {
+            headers: { "Content-Type": "application/javascript" },
+          });
+        }
+        return new Response("null", {
+          headers: { "Content-Type": "application/json" },
         });
       }),
     );

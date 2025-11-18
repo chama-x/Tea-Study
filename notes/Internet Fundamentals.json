@@ -15,7 +15,8 @@
       "analogy": "It's like the evolution of media: Web 1.0 is a newspaper (you can only read it). Web 2.0 is social media (you can post, comment, and share). Web 3.0 is a smart home device that understands your requests and acts on them.",
       "why_exists": "This framework helps us understand how technology and user expectations have changed over time, from passive consumption to active participation and now towards intelligent interaction.",
       "note": "Core concept",
-      "exam_critical": true
+      "exam_critical": true,
+      "subtitle": "Evolution of the Web"
     },
     {
       "id": 2,
@@ -31,7 +32,8 @@
       "why_exists": "It was created by Tim Berners-Lee to provide a user-friendly way for scientists to share and link research documents across different computer systems, simplifying information access on the complex Internet.",
       "note": "Key distinction",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "World Wide Web (WWW)"
     },
     {
       "id": 3,
@@ -47,7 +49,8 @@
       "why_exists": "It originated from a US military project (ARPANET) to create a decentralized communication network that could survive a major outage, a design that proved perfect for creating a robust global public network.",
       "note": "vs. WWW",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "The Internet"
     },
     {
       "id": 4,
@@ -63,7 +66,8 @@
       "why_exists": "This was the simplest way to get information online using the new technologies of the time (HTML, web servers). The focus was on publishing existing information, not creating a platform for interaction.",
       "note": "Read-Only Web",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Web 1.0"
     },
     {
       "id": 5,
@@ -85,7 +89,8 @@
       ],
       "note": "Key limitations",
       "exam_critical": false,
-      "parent": 4
+      "parent": 4,
+      "subtitle": "Disadvantages"
     },
     {
       "id": 6,
@@ -101,7 +106,8 @@
       "why_exists": "Web 2.0 emerged to fulfill the desire for a more democratic and interactive internet. People wanted to connect with each other, share their own ideas and creations, and participate rather than just consume.",
       "note": "Read-Write Web",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Web 2.0"
     },
     {
       "id": 7,
@@ -122,7 +128,8 @@
       ],
       "note": "Defining ideas",
       "exam_critical": false,
-      "parent": 6
+      "parent": 6,
+      "subtitle": "Core Principles"
     },
     {
       "id": 8,
@@ -144,7 +151,8 @@
       ],
       "note": "The downsides",
       "exam_critical": false,
-      "parent": 6
+      "parent": 6,
+      "subtitle": "Challenges"
     },
     {
       "id": 9,
@@ -168,7 +176,8 @@
       ],
       "note": "Key differences",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Web 1.0 vs Web 2.0"
     },
     {
       "id": 10,
@@ -184,7 +193,8 @@
       "why_exists": "Web 2.0 created a massive amount of unstructured user data. Web 3.0 exists to add a layer of meaning on top of this data, so that intelligent programs can sift through the noise and perform complex tasks for us.",
       "note": "Machine-Readable",
       "exam_critical": true,
-      "parent": 1
+      "parent": 1,
+      "subtitle": "Web 3.0"
     }
   ]
 }

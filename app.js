@@ -231,6 +231,9 @@ function render() {
 
   // Re-initialize tooltips after content change
   initHoverTooltips();
+
+  // Build table of contents
+  buildTableOfContents();
 }
 
 // Debounced version of render for better performance
@@ -1536,8 +1539,8 @@ async function loadNoteFromPath(path, retryWithoutCache = false) {
       encodedPath !== path ? `(encoded: ${encodedPath})` : "",
     );
 
-    // Fetch with cache control
-    const fetchOptions = retryWithoutCache ? { cache: "reload" } : {};
+    // Fetch with cache control - always use no-cache for JSON files to get latest data
+    const fetchOptions = { cache: "no-cache" };
     const response = await fetch(encodedPath, fetchOptions);
 
     if (response.ok) {
@@ -1634,6 +1637,9 @@ function showLibraryView() {
 
   noteContent.innerHTML = libraryHTML;
   document.querySelector(".paper-sheet").classList.add("library-mode");
+
+  // Hide TOC in library mode
+  hideTOC();
 
   // Setup search functionality
   if (hasNotes) {
@@ -1736,6 +1742,7 @@ function setupLibraryCardHandlers() {
 // Hide library view
 function hideLibraryView() {
   document.querySelector(".paper-sheet").classList.remove("library-mode");
+  showTOC();
 }
 
 // Make functions globally accessible
@@ -1933,3 +1940,207 @@ function closeLegend() {
 
 // Make closeLegend globally accessible
 window.closeLegend = closeLegend;
+
+// ============================================
+// TABLE OF CONTENTS OUTLINE
+// ============================================
+
+// Build and render TOC from current content
+function buildTableOfContents() {
+  const dataArray = currentData?.content;
+  if (!currentData || !dataArray) {
+    hideTOC();
+    return;
+  }
+
+  // Filter blocks based on current mode
+  let blocks = dataArray;
+  if (currentMode === "exam") {
+    blocks = blocks.filter((block) => block.exam_critical === true);
+  }
+
+  // Extract unique subtitles with their first occurrence block ID
+  // This prevents duplicate subtitles in TOC
+  const seenSubtitles = new Set();
+  const tocItems = [];
+
+  blocks.forEach((block) => {
+    // Only process blocks with subtitle field
+    if (!block.subtitle) return;
+
+    const subtitle = block.subtitle.trim();
+    
+    // Skip if we've already added this subtitle
+    if (seenSubtitles.has(subtitle)) return;
+
+    // Determine level based on block level or type
+    let level = block.level || 1;
+    
+    // For sections, use their level directly
+    // For other types (concept, list, etc.), infer from path depth
+    if (block.type !== "section" && block.path) {
+      const pathDepth = block.path.split(' > ').length;
+      level = Math.min(pathDepth, 3); // Cap at level 3
+    }
+
+    // Only include level 1 and 2 for TOC
+    if (level === 1 || level === 2) {
+      tocItems.push({
+        id: block.id,
+        subtitle: subtitle,
+        level: level,
+      });
+      seenSubtitles.add(subtitle);
+    }
+  });
+
+  if (tocItems.length === 0) {
+    hideTOC();
+    return;
+  }
+
+  // Create or get TOC container
+  let tocContainer = document.querySelector(".toc-outline");
+  if (!tocContainer) {
+    tocContainer = document.createElement("nav");
+    tocContainer.className = "toc-outline";
+    tocContainer.setAttribute("aria-label", "Table of Contents");
+    document.body.appendChild(tocContainer);
+  }
+
+  // Build TOC HTML
+  const tocHTML = `
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      ${tocItems
+        .map(
+          (item) => `
+        <li class="toc-item level-${item.level}">
+          <a class="toc-link" href="#" data-block-id="${item.id}" role="button">
+            ${escapeHtml(item.subtitle)}
+          </a>
+        </li>
+      `
+        )
+        .join("")}
+    </ul>
+  `;
+
+  tocContainer.innerHTML = tocHTML;
+  tocContainer.style.display = 'block'; // Ensure it's visible
+
+  // Add click handlers for smooth scrolling
+  tocContainer.querySelectorAll(".toc-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const blockId = link.getAttribute("data-block-id");
+      scrollToBlock(blockId);
+    });
+  });
+
+  // Initialize scroll spy
+  initScrollSpy();
+}
+
+// Scroll to a specific block smoothly
+function scrollToBlock(blockId) {
+  const blockEl = document.querySelector(`[data-id="${blockId}"]`);
+  if (!blockEl) return;
+
+  // Smooth scroll with offset for header
+  const headerHeight = document.querySelector(".top-bar")?.offsetHeight || 0;
+  const targetPosition = blockEl.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+
+  window.scrollTo({
+    top: targetPosition,
+    behavior: "smooth",
+  });
+
+  // Update active state immediately
+  updateActiveTOCItem(blockId);
+}
+
+// Track scroll position and highlight current section
+function initScrollSpy() {
+  let rafId = null;
+  const headerHeight = document.querySelector(".top-bar")?.offsetHeight || 0;
+
+  const handleScroll = () => {
+    if (rafId) return;
+
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+
+      // Get all blocks that have data-id (all content blocks)
+      const blocks = document.querySelectorAll("[data-id]");
+      if (blocks.length === 0) return;
+
+      // Get all TOC links to find which block IDs are in the TOC
+      const tocLinks = document.querySelectorAll(".toc-link");
+      const tocBlockIds = new Set();
+      tocLinks.forEach((link) => {
+        const blockId = link.getAttribute("data-block-id");
+        if (blockId) tocBlockIds.add(blockId);
+      });
+
+      // Find the current block (first one in TOC that's in viewport or above)
+      let currentBlockId = null;
+      const scrollPosition = window.scrollY + headerHeight + 100;
+
+      blocks.forEach((block) => {
+        const blockId = block.getAttribute("data-id");
+        // Only consider blocks that are in the TOC
+        if (!tocBlockIds.has(blockId)) return;
+
+        const blockTop = block.offsetTop;
+        if (blockTop <= scrollPosition) {
+          currentBlockId = blockId;
+        }
+      });
+
+      if (currentBlockId) {
+        updateActiveTOCItem(currentBlockId);
+      }
+    });
+  };
+
+  // Remove old listener if exists
+  if (window._tocScrollHandler) {
+    window.removeEventListener("scroll", window._tocScrollHandler);
+  }
+
+  // Store reference and add listener
+  window._tocScrollHandler = handleScroll;
+  window.addEventListener("scroll", handleScroll, { passive: true });
+
+  // Initial check
+  handleScroll();
+}
+
+// Update active TOC item
+function updateActiveTOCItem(blockId) {
+  const tocLinks = document.querySelectorAll(".toc-link");
+  tocLinks.forEach((link) => {
+    if (link.getAttribute("data-block-id") === String(blockId)) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+}
+
+// Hide TOC
+function hideTOC() {
+  const tocContainer = document.querySelector(".toc-outline");
+  if (tocContainer) {
+    tocContainer.style.display = "none";
+  }
+}
+
+// Show TOC
+function showTOC() {
+  const tocContainer = document.querySelector(".toc-outline");
+  if (tocContainer) {
+    tocContainer.style.display = "block";
+  }
+}

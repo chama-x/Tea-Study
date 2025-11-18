@@ -14,7 +14,8 @@
       "key_sentence": "The success of an Information System is critical as it forms the heart of any modern organization.",
       "simple_explanation": "A computer system in a company is successful if it helps the company make better plans, save money, improve work quality, and make employees' jobs better. It's the main engine that keeps the business running smoothly.",
       "title": "Information System Success",
-      "why_exists": "Companies invest huge amounts of money in technology. They needed a way to figure out if that investment was actually paying off and making the business better, not just adding complexity."
+      "why_exists": "Companies invest huge amounts of money in technology. They needed a way to figure out if that investment was actually paying off and making the business better, not just adding complexity.",
+      "subtitle": "Information System Success"
     },
     {
       "id": 2,
@@ -35,7 +36,8 @@
       "key_sentence": "The implementation of an information system directly influences five critical factors that determine its success:",
       "parent": 1,
       "simple_explanation": "To know if a company's computer system is good, you check five things: Does it help with planning? Does it make or save money? Does it make work better? Does it help employees? And does it help the company as a whole?",
-      "why_exists": "To break down the broad idea of 'success' into specific, measurable areas. This helps managers pinpoint where an IS is winning or failing."
+      "why_exists": "To break down the broad idea of 'success' into specific, measurable areas. This helps managers pinpoint where an IS is winning or failing.",
+      "subtitle": "Five Factors of IS Success"
     },
     {
       "id": 3,
@@ -49,7 +51,8 @@
       "key_sentence": "An information system contributes to strategy by helping managers identify external opportunities and threats, allowing for quick and accurate decision-making.",
       "parent": 2,
       "simple_explanation": "A good computer system acts like a lookout for a business. It helps managers spot good chances to grow and warns them about dangers from competitors, so they can make smart plans quickly.",
-      "why_exists": "Businesses operate in a competitive environment. An IS provides the intelligence needed to outmaneuver rivals and adapt to market changes, which is the core of business strategy."
+      "why_exists": "Businesses operate in a competitive environment. An IS provides the intelligence needed to outmaneuver rivals and adapt to market changes, which is the core of business strategy.",
+      "subtitle": "Strategy"
     },
     {
       "id": 4,
@@ -63,7 +66,8 @@
       "key_sentence": "Information systems can minimize operational costs and increase revenue.",
       "parent": 2,
       "simple_explanation": "Computer systems help businesses save money by doing boring jobs automatically, which is cheaper than paying people to do them. They also help managers make smart choices faster, which can lead to making more money.",
-      "why_exists": "The primary goal of most businesses is to be profitable. This factor directly measures how IT contributes to the bottom line by either cutting costs or boosting income."
+      "why_exists": "The primary goal of most businesses is to be profitable. This factor directly measures how IT contributes to the bottom line by either cutting costs or boosting income.",
+      "subtitle": "Revenue & Expenses"
     },
     {
       "id": 5,
@@ -77,7 +81,8 @@
       "key_sentence": "Information Systems enhance the quality of information and work output, moving beyond the limitations of manual processing.",
       "parent": 2,
       "simple_explanation": "Using computer systems makes work look better and be more accurate than doing it by hand. Think of typing an essay versus handwriting it—the typed version is neater, easier to fix, and looks more professional.",
-      "why_exists": "The quality of work and information directly impacts a company's reputation and effectiveness. IS provides tools to standardize and elevate that quality beyond what's possible manually."
+      "why_exists": "The quality of work and information directly impacts a company's reputation and effectiveness. IS provides tools to standardize and elevate that quality beyond what's possible manually.",
+      "subtitle": "Quality"
     },
     {
       "id": 6,
@@ -91,7 +96,8 @@
       "key_sentence": "Information systems have a dual impact on individuals: they can improve personal productivity while also making jobs more demanding.",
       "parent": 2,
       "simple_explanation": "Computer systems can make your job faster and help you get more done. But, they can also make your job more stressful because work moves quicker and you're expected to do more.",
-      "why_exists": "A system is only successful if the people using it benefit. This factor ensures that the human element is considered, evaluating whether the technology helps or hinders employees."
+      "why_exists": "A system is only successful if the people using it benefit. This factor ensures that the human element is considered, evaluating whether the technology helps or hinders employees.",
+      "subtitle": "Impact on Individual"
     },
     {
       "id": 7,
@@ -105,7 +111,8 @@
       "key_sentence": "Information Systems can fundamentally alter an organization's internal structure and decision-making processes.",
       "parent": 2,
       "simple_explanation": "When a company gets a new computer system, it can change how the company is set up. It can give top bosses more control because they can see all the important information in one place, letting them make all the big decisions.",
-      "why_exists": "Technology doesn't just automate old processes; it creates new ways of working. This factor assesses the system's transformative effect on the business as a whole."
+      "why_exists": "Technology doesn't just automate old processes; it creates new ways of working. This factor assesses the system's transformative effect on the business as a whole.",
+      "subtitle": "Impact on Organization"
     },
     {
       "id": 8,
@@ -119,7 +126,8 @@
       "key_sentence": "The DeLone and McLean (D&M) IS Success Model is a widely used framework for measuring the success of information systems.",
       "simple_explanation": "The D&M model is like a report card for a company's computer system. Instead of one grade, it gives scores in six different areas (like how well it works, if the info is good, if the helpdesk is helpful) to give a full picture of whether the system is successful.",
       "title": "DeLone and McLean's Success Model",
-      "why_exists": "Before this model, there was no standard way to measure if an IS was 'successful'. Researchers were measuring different things, so results couldn't be compared. D&M created a common language and framework for everyone to use."
+      "why_exists": "Before this model, there was no standard way to measure if an IS was 'successful'. Researchers were measuring different things, so results couldn't be compared. D&M created a common language and framework for everyone to use.",
+      "subtitle": "DeLone and McLean's Success Model"
     },
     {
       "id": 9,
@@ -133,7 +141,8 @@
       "key_sentence": "The original D&M model was created in 1992 to address a lack of scientific consensus on how to measure IS success.",
       "parent": 8,
       "simple_explanation": "Back in the day, nobody could agree on what made a computer system 'good'. It was messy. In 1992, two guys named DeLone and McLean looked at all the ideas and created one clear model with six categories to finally measure success properly.",
-      "why_exists": "To bring order to chaos. IS research was fragmented, with everyone using different metrics. The model provided a standardized, comprehensive framework that unified the field and allowed for comparable studies."
+      "why_exists": "To bring order to chaos. IS research was fragmented, with everyone using different metrics. The model provided a standardized, comprehensive framework that unified the field and allowed for comparable studies.",
+      "subtitle": "History"
     },
     {
       "id": 10,
@@ -147,7 +156,8 @@
       "key_sentence": "In 2003, DeLone and McLean updated their model based on a decade of research and feedback.",
       "parent": 8,
       "simple_explanation": "After 10 years, DeLone and McLean realized their first model could be better. They added a new category for how good the IT helpdesk is ('Service Quality') and combined the two 'impact' scores into one big 'Net Benefits' score to make it simpler and more complete.",
-      "why_exists": "The nature of IT and its role in business had changed in the 10 years since the original model. The rise of the internet and service-oriented IT departments meant that 'Service Quality' had become too important to ignore."
+      "why_exists": "The nature of IT and its role in business had changed in the 10 years since the original model. The rise of the internet and service-oriented IT departments meant that 'Service Quality' had become too important to ignore.",
+      "subtitle": "Updated Model (2003)"
     },
     {
       "id": 11,
@@ -169,7 +179,8 @@
       "key_sentence": "The updated D&M model's logic flows through its six dimensions, from quality characteristics to usage, satisfaction, and finally to net benefits, with a feedback loop.",
       "parent": 8,
       "simple_explanation": "The D&M model says that if a computer system is built well, has good information, and has a helpful support team, then people will want to use it and be happy with it. When people use it, it creates good results for the company, which in turn makes people even happier to use it.",
-      "why_exists": "To provide a logical, cause-and-effect structure for understanding IS success. It's not just a list of factors; it's a model that shows how they influence each other."
+      "why_exists": "To provide a logical, cause-and-effect structure for understanding IS success. It's not just a list of factors; it's a model that shows how they influence each other.",
+      "subtitle": "Six Dimensions (Updated)"
     },
     {
       "id": 12,
@@ -183,7 +194,8 @@
       "key_sentence": "The dimension of System Quality refers to the desirable characteristics of the information system itself, focusing on its technical performance.",
       "parent": 11,
       "simple_explanation": "System Quality asks: Does the app or website work well? Is it fast or slow? Does it crash a lot? Is it easy to figure out how to use? It’s all about how good the technology is, not the information it shows you.",
-      "why_exists": "Because even a system with perfect information is useless if it's constantly crashing, running too slowly, or is impossible for users to navigate. This dimension ensures the basic technical foundation is sound."
+      "why_exists": "Because even a system with perfect information is useless if it's constantly crashing, running too slowly, or is impossible for users to navigate. This dimension ensures the basic technical foundation is sound.",
+      "subtitle": "System Quality"
     },
     {
       "id": 13,
@@ -197,7 +209,8 @@
       "key_sentence": "The dimension of Information Quality concerns the quality of the output that the system produces.",
       "parent": 11,
       "simple_explanation": "Information Quality asks: Is the stuff the system shows you correct and useful? If you look up a sales report, are the numbers right? Is the information recent or from last year? Is it easy to understand?",
-      "why_exists": "A technically perfect system that produces garbage information is a failure. This dimension ensures that the data and reports generated by the system are trustworthy and valuable for decision-making."
+      "why_exists": "A technically perfect system that produces garbage information is a failure. This dimension ensures that the data and reports generated by the system are trustworthy and valuable for decision-making.",
+      "subtitle": "Information Quality"
     },
     {
       "id": 14,
@@ -211,7 +224,8 @@
       "key_sentence": "The dimension of Service Quality represents the quality of the support that users receive from the IS department and IT support personnel.",
       "parent": 11,
       "simple_explanation": "Service Quality asks: If you have a problem with the computer system, is the IT helpdesk actually helpful? Do they answer quickly? Do they know what they're doing? Are they friendly? It's all about the quality of the human support you get.",
-      "why_exists": "As systems became more complex and central to business, the need for good support grew. A system can fail if users can't get help when they're stuck. This dimension was added to reflect the critical role of the IT support department."
+      "why_exists": "As systems became more complex and central to business, the need for good support grew. A system can fail if users can't get help when they're stuck. This dimension was added to reflect the critical role of the IT support department.",
+      "subtitle": "Service Quality"
     },
     {
       "id": 15,
@@ -225,7 +239,8 @@
       "key_sentence": "The dimension of (Intention to) Use represents the degree and manner in which an IS is utilized by its users.",
       "parent": 11,
       "simple_explanation": "This dimension asks: Are people actually using the system? How often? Are they using it correctly? For systems that everyone is forced to use at work, it instead asks if people *want* to use it, which shows if they truly find it helpful.",
-      "why_exists": "A system can't provide any benefits if nobody uses it. This dimension measures adoption and engagement, which is a necessary step between a 'good system' and 'good results'."
+      "why_exists": "A system can't provide any benefits if nobody uses it. This dimension measures adoption and engagement, which is a necessary step between a 'good system' and 'good results'.",
+      "subtitle": "Intention to Use"
     },
     {
       "id": 16,
@@ -239,7 +254,8 @@
       "key_sentence": "The dimension of User Satisfaction captures a user's overall feelings and attitude about using the information system.",
       "parent": 11,
       "simple_explanation": "User Satisfaction asks: Do people like using the system? Does it make them happy or frustrated? This is super important when people are forced to use a system for their job, because even if they use it, they might hate it, which means it's not truly successful.",
-      "why_exists": "To capture the affective, or emotional, response of users. A system that frustrates its users can lead to low morale, workarounds, and hidden costs, even if it appears to be functioning correctly."
+      "why_exists": "To capture the affective, or emotional, response of users. A system that frustrates its users can lead to low morale, workarounds, and hidden costs, even if it appears to be functioning correctly.",
+      "subtitle": "User Satisfaction"
     },
     {
       "id": 17,
@@ -253,7 +269,8 @@
       "key_sentence": "The dimension of Net Benefits constitutes the extent to which an IS contributes to the success of its different stakeholders.",
       "parent": 11,
       "simple_explanation": "Net Benefits asks: So what? Did the system actually make things better? Did it help employees do their job faster? Did it save the company money? Did it make the company more competitive? It’s the final score that measures the overall good things the system caused.",
-      "why_exists": "To measure the ultimate success of an IS. A system can be well-liked and used often, but if it doesn't deliver tangible, positive outcomes for the organization and its people, it cannot be considered a success. This dimension links the system directly to value creation."
+      "why_exists": "To measure the ultimate success of an IS. A system can be well-liked and used often, but if it doesn't deliver tangible, positive outcomes for the organization and its people, it cannot be considered a success. This dimension links the system directly to value creation.",
+      "subtitle": "Net Benefits"
     },
     {
       "id": 18,
@@ -267,7 +284,8 @@
       "key_sentence": "Pizza Hut's centralized call center and delivery system can be analyzed using the updated D&M model.",
       "parent": 8,
       "simple_explanation": "Pizza Hut's ordering system is a great example of the D&M model. The computers work well, the order info is correct, and they promise fast delivery. This makes customers happy and want to order again. The final result is that Pizza Hut makes a lot of money and beats its competition.",
-      "why_exists": "To demonstrate how the abstract dimensions of the D&M model can be applied to a real-world business information system to understand the sources of its success."
+      "why_exists": "To demonstrate how the abstract dimensions of the D&M model can be applied to a real-world business information system to understand the sources of its success.",
+      "subtitle": "Pizza Hut Example"
     },
     {
       "id": 19,
@@ -281,7 +299,8 @@
       "key_sentence": "The Technology Acceptance Model (TAM) is an information system theory that explains how users come to accept and use a technology.",
       "simple_explanation": "TAM is a simple theory to guess if people will actually use a new piece of tech, like an app or website. It just asks two questions: 'Do you think it will be useful?' and 'Do you think it will be easy to use?' If people think 'yes' to both, they'll probably use it.",
       "title": "Technology Acceptance Model (TAM)",
-      "why_exists": "Companies were building technically advanced systems that employees refused to use. TAM was created to explain this puzzle by focusing on user perceptions. It showed that it doesn't matter how powerful a system is if users don't believe it's useful or think it's too hard to learn."
+      "why_exists": "Companies were building technically advanced systems that employees refused to use. TAM was created to explain this puzzle by focusing on user perceptions. It showed that it doesn't matter how powerful a system is if users don't believe it's useful or think it's too hard to learn.",
+      "subtitle": "Technology Acceptance Model (TAM)"
     },
     {
       "id": 20,
@@ -303,7 +322,8 @@
       "key_sentence": "The Technology Acceptance Model is built around a chain of key variables that influence each other.",
       "parent": 19,
       "simple_explanation": "TAM has a few key parts: You first notice outside stuff (like what your friends use). This affects if you think the tech is useful and easy. Those two thoughts decide your attitude (if you like it or not). Your attitude decides if you plan to use it. And that plan leads to you actually using it.",
-      "why_exists": "To break down the complex decision of adopting technology into a simple, logical sequence of psychological steps, making it easier to study and predict."
+      "why_exists": "To break down the complex decision of adopting technology into a simple, logical sequence of psychological steps, making it easier to study and predict.",
+      "subtitle": "Variables of TAM"
     },
     {
       "id": 21,
@@ -317,7 +337,8 @@
       "key_sentence": "Perceived Usefulness (PU) is defined as the degree to which a person believes that using a particular system would enhance his or her job performance.",
       "parent": 20,
       "simple_explanation": "Perceived Usefulness is simply asking: 'Will this thing actually help me?' If you believe an app will help you get your homework done faster or get a better grade, then it has high usefulness for you.",
-      "why_exists": "To capture the most important reason people use technology at work: to get their job done better. This variable isolates the practical, results-oriented motivation for technology adoption."
+      "why_exists": "To capture the most important reason people use technology at work: to get their job done better. This variable isolates the practical, results-oriented motivation for technology adoption.",
+      "subtitle": "Perceived Usefulness (PU)"
     },
     {
       "id": 22,
@@ -331,7 +352,8 @@
       "key_sentence": "Perceived Ease of Use (PEOU) is defined as the degree to which a person believes that using a particular system would be free of effort.",
       "parent": 20,
       "simple_explanation": "Perceived Ease of Use is asking: 'Will this be easy, or a huge pain to learn?' If an app looks simple and not confusing, it has high ease of use. If it looks like it needs a 100-page manual, it has low ease of use.",
-      "why_exists": "To account for the 'friction' of learning and using new technology. Even a very useful tool might be rejected if the effort required to use it is too high. PEOU measures this barrier to adoption."
+      "why_exists": "To account for the 'friction' of learning and using new technology. Even a very useful tool might be rejected if the effort required to use it is too high. PEOU measures this barrier to adoption.",
+      "subtitle": "Perceived Ease of Use (PEOU)"
     },
     {
       "id": 23,
@@ -345,7 +367,8 @@
       "key_sentence": "Attitude Towards the use of a system (A) is the user's evaluation of the desirability of employing a particular information system.",
       "parent": 20,
       "simple_explanation": "Attitude is just whether you like or dislike the technology. After thinking about if it's useful and easy, you decide, 'Yeah, this is cool' or 'Ugh, I hate this thing.' That feeling is your attitude.",
-      "why_exists": "To act as a mediator between a user's beliefs (what they think about the system) and their intentions (what they plan to do). It captures the emotional or evaluative step in the decision-making process."
+      "why_exists": "To act as a mediator between a user's beliefs (what they think about the system) and their intentions (what they plan to do). It captures the emotional or evaluative step in the decision-making process.",
+      "subtitle": "Attitude Towards Use (A)"
     },
     {
       "id": 24,
@@ -359,7 +382,8 @@
       "key_sentence": "Behavioral Intention to Use (BI) measures the likelihood of a person employing the application or the system.",
       "parent": 20,
       "simple_explanation": "This is your plan. After deciding you like the app, your intention is when you say to yourself, 'Okay, I'm definitely going to use this later.' It's the final thought before you actually do it.",
-      "why_exists": "According to psychological theories, intention is the most direct and powerful predictor of actual behavior. By measuring intention, the model can make a strong prediction about future use without having to wait and observe it."
+      "why_exists": "According to psychological theories, intention is the most direct and powerful predictor of actual behavior. By measuring intention, the model can make a strong prediction about future use without having to wait and observe it.",
+      "subtitle": "Behavioral Intention to Use (BI)"
     },
     {
       "id": 25,
@@ -373,7 +397,8 @@
       "key_sentence": "External variables are factors from the outside world that affect a user's internal beliefs about a technology's usefulness and ease of use.",
       "parent": 20,
       "simple_explanation": "External variables are all the outside things that influence your opinion. For example, if all your friends are using a certain app (social factor), you're more likely to think it's useful. These outside influences shape your first impression of the tech.",
-      "why_exists": "To make the model more realistic. It acknowledges that individual decisions are not made in isolation but are shaped by the environment, social pressures, and cultural context in which the user lives and works."
+      "why_exists": "To make the model more realistic. It acknowledges that individual decisions are not made in isolation but are shaped by the environment, social pressures, and cultural context in which the user lives and works.",
+      "subtitle": "External Variables"
     },
     {
       "id": 26,
@@ -387,7 +412,8 @@
       "key_sentence": "The model assumes that people plan their behavior rationally, which isn't always true.",
       "parent": 19,
       "simple_explanation": "TAM isn't perfect. First, it thinks people always make logical choices, but sometimes we just do things because we feel like it. Second, it tells you that an app should be 'useful' and 'easy,' but it doesn't give you any tips on how to actually build an app that is useful and easy.",
-      "why_exists": "Understanding the limitations of a model is crucial for using it correctly. These criticisms highlight areas where TAM might fall short and have led to the development of more comprehensive models like UTAUT."
+      "why_exists": "Understanding the limitations of a model is crucial for using it correctly. These criticisms highlight areas where TAM might fall short and have led to the development of more comprehensive models like UTAUT.",
+      "subtitle": "Limitations of TAM"
     },
     {
       "id": 27,
@@ -401,7 +427,8 @@
       "key_sentence": "The widespread acceptance of Automated Teller Machines (ATMs) can be explained using TAM.",
       "parent": 19,
       "simple_explanation": "Why do we all use ATMs? TAM explains it. We think they're useful because we can get cash anytime. We think they're easy because it's faster than waiting in line at the bank. Because of this, we like them and plan to use them. Things like the pandemic made us want to use them even more.",
-      "why_exists": "To provide a clear, real-world application of the TAM theory, showing how the abstract variables of PU and PEOU translate into the adoption of a technology that is now part of everyday life."
+      "why_exists": "To provide a clear, real-world application of the TAM theory, showing how the abstract variables of PU and PEOU translate into the adoption of a technology that is now part of everyday life.",
+      "subtitle": "ATM Example"
     },
     {
       "id": 28,
@@ -415,7 +442,8 @@
       "key_sentence": "The Unified Theory of Acceptance and Use of Technology (UTAUT) was developed by Venkatesh and others to synthesize previous technology acceptance models into one unified framework.",
       "simple_explanation": "UTAUT is like a super-model that combines a bunch of older, simpler models (like TAM) into one. It tries to explain why people use technology using four main ideas: Will it help me? Is it easy? Are other people using it? And do I have the stuff I need to use it?",
       "title": "Unified Theory of Acceptance and Use of Technology (UTAUT)",
-      "why_exists": "There were too many competing models (TAM, Theory of Planned Behavior, etc.) trying to explain the same thing. UTAUT was created to consolidate the strengths of these models, reduce redundancy, and create a more powerful and accurate predictive tool for researchers and practitioners."
+      "why_exists": "There were too many competing models (TAM, Theory of Planned Behavior, etc.) trying to explain the same thing. UTAUT was created to consolidate the strengths of these models, reduce redundancy, and create a more powerful and accurate predictive tool for researchers and practitioners.",
+      "subtitle": "Unified Theory of Acceptance and Use of Technology (UTAUT)"
     },
     {
       "id": 29,
@@ -436,7 +464,8 @@
       "key_sentence": "The UTAUT model is defined by four core constructs that directly influence behavior, and four moderators that change the strength of those influences.",
       "parent": 28,
       "simple_explanation": "UTAUT says four things matter when you decide to use tech: 1. Will it help me? 2. Is it easy? 3. Are my friends/bosses using it? 4. Do I have the support/tools needed? The importance of these four things can change depending on who you are (your age, gender, experience) and if you have a choice to use it or not.",
-      "why_exists": "To create a comprehensive model that not only identifies the direct drivers of technology use but also explains why these drivers affect different people in different ways."
+      "why_exists": "To create a comprehensive model that not only identifies the direct drivers of technology use but also explains why these drivers affect different people in different ways.",
+      "subtitle": "Key Constructs and Moderators"
     },
     {
       "id": 30,
@@ -450,7 +479,8 @@
       "key_sentence": "Performance expectancy is 'the degree to which an individual believes that using the system will help him or her to attain gains in job performance'.",
       "parent": 29,
       "simple_explanation": "This is just like 'Perceived Usefulness.' It's the belief that using the technology will help you do your job better or be more successful. The theory says this matters more to men and younger people.",
-      "why_exists": "To consolidate similar concepts from previous models (like Perceived Usefulness, outcome expectations) into a single, more powerful construct representing the utilitarian driver of technology adoption."
+      "why_exists": "To consolidate similar concepts from previous models (like Perceived Usefulness, outcome expectations) into a single, more powerful construct representing the utilitarian driver of technology adoption.",
+      "subtitle": "Performance Expectancy"
     },
     {
       "id": 31,
@@ -464,7 +494,8 @@
       "key_sentence": "Effort expectancy is 'the degree of ease associated with the use of the system'.",
       "parent": 29,
       "simple_explanation": "This is just like 'Perceived Ease of Use.' It's how easy you think the technology will be to use. The theory suggests this is a bigger deal for women, older people, and those who haven't used a lot of tech before.",
-      "why_exists": "To combine related concepts about cognitive effort (like ease of use, complexity) from earlier theories into a single construct representing the usability barrier to adoption."
+      "why_exists": "To combine related concepts about cognitive effort (like ease of use, complexity) from earlier theories into a single construct representing the usability barrier to adoption.",
+      "subtitle": "Effort Expectancy"
     },
     {
       "id": 32,
@@ -478,7 +509,8 @@
       "key_sentence": "Social influence is 'the degree to which an individual perceives that important others believe he or she should use the new system'.",
       "parent": 29,
       "simple_explanation": "This is about what other people think. If your boss, your coworkers, or your friends think you should use a certain technology, you're more likely to use it. It's basically peer pressure for tech.",
-      "why_exists": "To formalize the powerful impact of social norms and pressure, which were often treated as just an 'external variable' in simpler models like TAM. UTAUT recognizes social factors as a core driver of adoption."
+      "why_exists": "To formalize the powerful impact of social norms and pressure, which were often treated as just an 'external variable' in simpler models like TAM. UTAUT recognizes social factors as a core driver of adoption.",
+      "subtitle": "Social Influence"
     },
     {
       "id": 33,
@@ -492,7 +524,8 @@
       "key_sentence": "Facilitating conditions are 'the degree to which an individual believes that an organizational and technical infrastructure exists to support use of the system'.",
       "parent": 29,
       "simple_explanation": "This asks: 'Do I have the stuff I need to use this?' It means having the right computer, good internet, and a helpdesk to call if you get stuck. If you don't have this support, you can't use the tech, even if you want to.",
-      "why_exists": "To account for the practical realities that can prevent technology use, even when a user is motivated. It acknowledges that intention is not enough; users also need tangible support and resources to turn intention into action."
+      "why_exists": "To account for the practical realities that can prevent technology use, even when a user is motivated. It acknowledges that intention is not enough; users also need tangible support and resources to turn intention into action.",
+      "subtitle": "Facilitating Conditions"
     },
     {
       "id": 34,
@@ -506,7 +539,8 @@
       "key_sentence": "The adoption of mobile messaging applications can be understood through the four UTAUT constructs.",
       "parent": 28,
       "simple_explanation": "Why does everyone use apps like WhatsApp? UTAUT explains: You think it will help you talk to friends (performance). It's easy to use (effort). All your friends are on it (social). And you have a phone and internet to run it (facilitating conditions).",
-      "why_exists": "To show how the four constructs of UTAUT work together to explain a real-world phenomenon—the near-universal adoption of mobile messaging—in a more complete way than a simpler model like TAM could."
+      "why_exists": "To show how the four constructs of UTAUT work together to explain a real-world phenomenon—the near-universal adoption of mobile messaging—in a more complete way than a simpler model like TAM could.",
+      "subtitle": "Mobile Messaging Example"
     },
     {
       "id": 35,
@@ -520,7 +554,8 @@
       "key_sentence": "While much IS research focuses on why people use technology, Technology Resistance Theories investigate the opposite question: why do individuals resist or reject new technologies?",
       "simple_explanation": "Most theories are about why people like and use new tech. These theories are about the opposite: why people hate and refuse to use new tech. It's about understanding why people say 'no'.",
       "title": "Technology Resistance Theories",
-      "why_exists": "Because in the real world, many expensive IT projects fail because employees actively or passively resist them. Acceptance models didn't fully explain this negative reaction, so new theories were needed to understand and manage resistance."
+      "why_exists": "Because in the real world, many expensive IT projects fail because employees actively or passively resist them. Acceptance models didn't fully explain this negative reaction, so new theories were needed to understand and manage resistance.",
+      "subtitle": "Technology Resistance Theories"
     },
     {
       "id": 36,
@@ -539,7 +574,8 @@
       "key_sentence": "It's important to distinguish between different forms of non-use.",
       "parent": 35,
       "simple_explanation": "There are different ways to say 'no' to tech. 'Resistance' is when you actively fight it. 'Rejection' is when you look at it and say 'this is garbage' and ignore it. 'Non-adoption' is when you just quietly choose not to use it.",
-      "why_exists": "To provide a more precise vocabulary for studying non-use. Lumping all non-users together is inaccurate; the reasons for active resistance are very different from the reasons for passive non-adoption."
+      "why_exists": "To provide a more precise vocabulary for studying non-use. Lumping all non-users together is inaccurate; the reasons for active resistance are very different from the reasons for passive non-adoption.",
+      "subtitle": "Key Definitions"
     },
     {
       "id": 37,
@@ -553,7 +589,8 @@
       "key_sentence": "The 'Power, Politics, and MIS Implementation' theory by Markus (1983) posits that resistance is a political behavior, not a technical one.",
       "parent": 35,
       "simple_explanation": "This theory says people resist new tech if they think it will make them less important at work. If a new system takes away control or power from someone, they will fight against it to protect their job status.",
-      "why_exists": "To explain why technically sound systems sometimes fail due to organizational politics. It shifted the focus from user 'irrationality' to understanding resistance as a rational response to a perceived threat to one's power and influence."
+      "why_exists": "To explain why technically sound systems sometimes fail due to organizational politics. It shifted the focus from user 'irrationality' to understanding resistance as a rational response to a perceived threat to one's power and influence.",
+      "subtitle": "Power and Politics"
     },
     {
       "id": 38,
@@ -567,7 +604,8 @@
       "key_sentence": "Joshi's (1991) model views resistance to change from an equity theory perspective.",
       "parent": 35,
       "simple_explanation": "This theory says people resist a new system if they feel it's unfair. They'll think, 'This new software makes my job way harder, but my coworker barely has to do anything different, and we still get paid the same.' If it feels unbalanced, they'll push back.",
-      "why_exists": "To explain resistance based on perceptions of fairness. It shows that resistance isn't just about individual loss of power, but also about the relative distribution of costs and benefits across the organization."
+      "why_exists": "To explain resistance based on perceptions of fairness. It shows that resistance isn't just about individual loss of power, but also about the relative distribution of costs and benefits across the organization.",
+      "subtitle": "Equity Theory Perspective"
     },
     {
       "id": 39,
@@ -581,7 +619,8 @@
       "key_sentence": "The Task-Technology Fit (TTF) theory, proposed by Goodhue and Thompson (1995), states that IT is more likely to have a positive impact on individual performance and be used if the technology's capabilities match the tasks that the user must perform.",
       "simple_explanation": "This theory is super simple: a technology will be successful if it's the right tool for the job. If you need to write an essay, a word processor is a great fit. If you need to bake a cake, a word processor is a terrible fit. The better the fit, the more successful the tech.",
       "title": "Task-Technology Fit (TTF) Theory",
-      "why_exists": "To explain why some technically 'good' systems fail. TAM focuses on perceptions of usefulness, but TTF gets more specific: usefulness depends on what task you're trying to do. It provides a more objective measure by matching technology features directly to task requirements."
+      "why_exists": "To explain why some technically 'good' systems fail. TAM focuses on perceptions of usefulness, but TTF gets more specific: usefulness depends on what task you're trying to do. It provides a more objective measure by matching technology features directly to task requirements.",
+      "subtitle": "Task-Technology Fit (TTF) Theory"
     },
     {
       "id": 40,
@@ -595,7 +634,8 @@
       "key_sentence": "An example of the TTF model in action is a lecturer delivering virtual classes.",
       "parent": 39,
       "simple_explanation": "Think about a teacher who has to teach online. The task is 'teach a class over the internet.' The technology is something like Zoom, which is built for video calls. Because Zoom is a perfect fit for the task, the teacher will use it and be able to do their job well.",
-      "why_exists": "To provide a clear, practical illustration of the TTF model's components and how they link together to produce positive outcomes."
+      "why_exists": "To provide a clear, practical illustration of the TTF model's components and how they link together to produce positive outcomes.",
+      "subtitle": "Lecturer Example"
     },
     {
       "id": 41,
@@ -609,7 +649,8 @@
       "key_sentence": "TTF can be combined with other theories, such as TAM, to expand its explanatory power.",
       "parent": 39,
       "simple_explanation": "You can mix and match theories. If you combine TTF and TAM, the idea is: if a technology is the perfect tool for your job (that's TTF), then you will probably think it's very useful (that's TAM), and because you think it's useful, you will use it.",
-      "why_exists": "To create more robust and nuanced models. TTF explains the objective fit, while TAM explains the subjective perception. Combining them provides a fuller picture of why a technology succeeds, from its design characteristics to the user's mindset."
+      "why_exists": "To create more robust and nuanced models. TTF explains the objective fit, while TAM explains the subjective perception. Combining them provides a fuller picture of why a technology succeeds, from its design characteristics to the user's mindset.",
+      "subtitle": "Combining with other theories"
     }
   ]
 }
