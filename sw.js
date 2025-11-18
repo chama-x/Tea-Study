@@ -1,5 +1,5 @@
 // Update this version number whenever you make changes
-const CACHE_VERSION = "v2.0.2";
+const CACHE_VERSION = "v2.0.6";
 const CACHE_NAME = `study-notes-${CACHE_VERSION}`;
 
 const urlsToCache = ["/", "/index.html", "/styles.css", "/manifest.json"];
@@ -33,7 +33,7 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Fetch event - Network first, then cache (for fresh content)
+// Fetch event - Stale-while-revalidate strategy for better UX
 self.addEventListener("fetch", (event) => {
   // Only handle http and https requests
   if (!event.request.url.startsWith("http")) {
@@ -52,24 +52,27 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Stale-while-revalidate: serve from cache immediately, update cache in background
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Only cache successful responses
-        if (response.ok) {
-          // Clone the response before caching
-          const responseToCache = response.clone();
+    caches.match(event.request).then((cachedResponse) => {
+      const fetchPromise = fetch(event.request)
+        .then((networkResponse) => {
+          // Only cache successful responses
+          if (networkResponse && networkResponse.ok) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Network failed, return cached response if available
+          return cachedResponse;
+        });
 
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-        }
-
-        return response;
-      })
-      .catch(() => {
-        // If network fails, try cache
-        return caches.match(event.request);
-      }),
+      // Return cached response immediately if available, otherwise wait for network
+      return cachedResponse || fetchPromise;
+    })
   );
 });

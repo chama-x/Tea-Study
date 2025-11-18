@@ -19,14 +19,20 @@
     --critical-bg: #fef9e7;
     --important-mark: #d4a574;
     --hole-bg: #e8e5e1;
-    --critical-highlight: rgba(254, 243, 199, 0.15); /* Very subtle yellow tint */
-    
+    --critical-highlight: rgba(
+        254,
+        243,
+        199,
+        0.15
+    ); /* Very subtle yellow tint */
+
     /* Typography */
     --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-    --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    --font-heading:
+        -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
     --font-body: "Charter", "Palatino", "Georgia", serif;
     --font-margin: "SF Mono", "Menlo", monospace;
-    
+
     /* Spacing */
     --line-height: 2em;
     --margin-width: 80px;
@@ -125,22 +131,25 @@ body {
     min-height: 1123px;
     margin: 40px auto 80px;
     background: var(--paper-bg);
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent calc(var(--line-height) - 1px),
-            var(--ruled-line) calc(var(--line-height) - 1px),
-            var(--ruled-line) var(--line-height)
-        );
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent calc(var(--line-height) - 1px),
+        var(--ruled-line) calc(var(--line-height) - 1px),
+        var(--ruled-line) var(--line-height)
+    );
     background-position: 0 0;
-    box-shadow: 
-        0 1px 2px rgba(0,0,0,0.04),
-        0 4px 12px rgba(0,0,0,0.06),
-        0 16px 48px rgba(0,0,0,0.08);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        0 16px 48px rgba(0, 0, 0, 0.08);
     position: relative;
     padding: 0 50px 60px calc(var(--hole-width) + var(--margin-width) + 20px);
     padding-top: calc(var(--line-height) * 1.5);
+
+    /* Performance optimizations */
+    will-change: scroll-position;
+    contain: layout style paint;
 }
 
 /* ============================================
@@ -163,7 +172,7 @@ body {
     height: 32px;
     background: var(--hole-bg);
     border-radius: 50%;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* ============================================
@@ -189,6 +198,9 @@ body {
     color: var(--text-primary);
     outline: none;
     min-height: 800px;
+
+    /* Performance optimizations */
+    contain: layout style;
 }
 
 /* Preserve line alignment - critical for ruled lines */
@@ -211,10 +223,28 @@ body {
    ============================================ */
 
 /* Hierarchical indentation based on level */
-.level-1 { padding-left: 0; }
-.level-2 { padding-left: 20px; }
-.level-3 { padding-left: 40px; }
-.level-4 { padding-left: 60px; }
+.level-1 {
+    padding-left: 0;
+}
+.level-2 {
+    padding-left: 20px;
+}
+.level-3 {
+    padding-left: 40px;
+}
+.level-4 {
+    padding-left: 60px;
+}
+
+/* Performance: Isolate layout calculations for content blocks */
+.section-block,
+.concept-block,
+.list-block,
+.formula-block,
+.example-block,
+.generic-block {
+    contain: layout style;
+}
 
 /* Headings */
 .block-heading {
@@ -514,7 +544,8 @@ body {
     background: var(--paper-bg);
 }
 
-.block-comparison th, .block-comparison td {
+.block-comparison th,
+.block-comparison td {
     border: 1px solid var(--ruled-line);
     padding: 8px 12px;
     text-align: left;
@@ -555,17 +586,17 @@ body {
     color: var(--important-mark);
 }
 
-
-
 /* ============================================
    INLINE FORMATTING
    ============================================ */
-strong, b {
+strong,
+b {
     font-weight: 600;
     color: var(--text-primary);
 }
 
-em, i {
+em,
+i {
     font-style: italic;
     color: var(--text-secondary);
 }
@@ -583,9 +614,15 @@ code {
    SIMPLIFIED HIGHLIGHT SYSTEM (Student-Focused)
    ============================================ */
 /* All highlights use the same yellow - simple and clear */
-mark-critical, .mark-critical,
-mark-key, .mark-key {
-    background: linear-gradient(180deg, transparent 65%, rgba(255, 244, 214, 0.8) 65%);
+mark-critical,
+.mark-critical,
+mark-key,
+.mark-key {
+    background: linear-gradient(
+        180deg,
+        transparent 65%,
+        rgba(255, 244, 214, 0.8) 65%
+    );
     color: inherit;
     font-weight: 500;
     padding: 0;
@@ -626,7 +663,7 @@ mark-key, .mark-key {
 }
 
 .toggle-option input[type="checkbox"]:checked::after {
-    content: '✓';
+    content: "✓";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -725,14 +762,21 @@ mark-key, .mark-key {
     padding-inline: var(--mark-overlap);
     background-color: transparent;
     background-image:
-        linear-gradient(to bottom right, transparent 50%, var(--mark-color) 50%),
+        linear-gradient(
+            to bottom right,
+            transparent 50%,
+            var(--mark-color) 50%
+        ),
         linear-gradient(var(--mark-color), var(--mark-color)),
         linear-gradient(to top left, transparent 50%, var(--mark-color) 50%);
     background-size:
         var(--mark-skew) var(--mark-height),
         calc(100% - var(--mark-skew) * 2 + 1px) var(--mark-height),
         var(--mark-skew) var(--mark-height);
-    background-position: left center, center, right center;
+    background-position:
+        left center,
+        center,
+        right center;
     background-repeat: no-repeat;
     color: inherit;
     font-weight: 500;
@@ -807,7 +851,7 @@ mark-key, .mark-key {
     background: #10b981;
     color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     animation: slideIn 0.3s ease;
     font-family: var(--font-ui);
@@ -840,8 +884,6 @@ mark-key, .mark-key {
     }
 }
 
-
-
 /* ============================================
    RESPONSIVE
    ============================================ */
@@ -850,15 +892,15 @@ mark-key, .mark-key {
         margin: 20px;
         padding-left: 65px;
     }
-    
+
     .holes {
         left: 8px;
     }
-    
+
     .margin-line {
         left: 55px;
     }
-    
+
     :root {
         --margin-width: 50px;
         --hole-width: 20px;
@@ -872,71 +914,75 @@ mark-key, .mark-key {
     .legend-modal {
         display: none !important;
     }
-    
+
     /* Remove body background */
     body {
         background: white;
         margin: 0;
         padding: 0;
     }
-    
+
     /* Optimize paper sheet for printing - match screen exactly */
     .paper-sheet {
         box-shadow: none;
         margin: 0;
-        padding: 0 50px 60px calc(var(--hole-width) + var(--margin-width) + 20px);
+        padding: 0 50px 60px
+            calc(var(--hole-width) + var(--margin-width) + 20px);
         padding-top: calc(var(--line-height) * 1.5);
         width: 100%;
         max-width: 100%;
         background: white;
         /* Keep ruled lines matching screen */
-        background-image: 
-            repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent calc(var(--line-height) - 1px),
-                #e3ddd4 calc(var(--line-height) - 1px),
-                #e3ddd4 var(--line-height)
-            );
+        background-image: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent calc(var(--line-height) - 1px),
+            #e3ddd4 calc(var(--line-height) - 1px),
+            #e3ddd4 var(--line-height)
+        );
         background-position: 0 0;
         page-break-after: avoid;
     }
-    
+
     /* Keep holes visible */
     .holes {
         display: flex;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     .hole {
         background: #e8e5e1;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     /* Hide margin line in print */
     .margin-line {
         display: none;
     }
-    
+
     /* Ensure content is readable */
     .note-content {
         color: #1a1410;
     }
-    
+
     /* Preserve simplified highlighting - match screen exactly */
     mark-critical,
     .mark-critical,
     mark-key,
     .mark-key {
-        background: linear-gradient(180deg, transparent 65%, rgba(255, 244, 214, 0.8) 65%);
+        background: linear-gradient(
+            180deg,
+            transparent 65%,
+            rgba(255, 244, 214, 0.8) 65%
+        );
         color: inherit;
         font-weight: 500;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     .key-sentence {
         --mark-color: #fff4d6;
         --mark-skew: 0.25em;
@@ -946,14 +992,21 @@ mark-key, .mark-key {
         padding-inline: var(--mark-overlap);
         background-color: transparent;
         background-image:
-            linear-gradient(to bottom right, transparent 50%, var(--mark-color) 50%),
+            linear-gradient(
+                to bottom right,
+                transparent 50%,
+                var(--mark-color) 50%
+            ),
             linear-gradient(var(--mark-color), var(--mark-color)),
             linear-gradient(to top left, transparent 50%, var(--mark-color) 50%);
         background-size:
             var(--mark-skew) var(--mark-height),
             calc(100% - var(--mark-skew) * 2 + 1px) var(--mark-height),
             var(--mark-skew) var(--mark-height);
-        background-position: left center, center, right center;
+        background-position:
+            left center,
+            center,
+            right center;
         background-repeat: no-repeat;
         color: inherit;
         font-weight: 500;
@@ -962,12 +1015,12 @@ mark-key, .mark-key {
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     /* No background for exam-critical - match screen */
     .exam-critical {
         position: relative; /* Clean - no background */
     }
-    
+
     /* Keep sections together */
     .section-block,
     .concept-block,
@@ -976,39 +1029,39 @@ mark-key, .mark-key {
     .example-block {
         page-break-inside: avoid;
     }
-    
+
     /* Preserve margin notes */
     .margin-note {
         color: #8b6f47;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     /* Preserve exam badge */
     .exam-badge {
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     /* Preserve path badge and topic heading */
     .path-badge {
         color: #9ca3af;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     .topic-heading {
         color: #1a1410;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     /* Hide tooltips and interactive elements */
     .metadata-tooltip,
     .metadata-indicator {
         display: none !important;
     }
-    
+
     /* Preserve user notes if added */
     .user-notes {
         background: #fffbeb;
@@ -1017,30 +1070,32 @@ mark-key, .mark-key {
         -webkit-print-color-adjust: exact;
         page-break-inside: avoid;
     }
-    
+
     .added-note {
         border-bottom: 1px solid #fef3c7;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     .note-label {
         color: #92400e;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     .note-text {
         color: #78350f;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     /* Ensure all text uses proper line height */
-    p, li, div {
+    p,
+    li,
+    div {
         line-height: var(--line-height);
     }
-    
+
     /* Preserve comparison tables */
     .comparison-table {
         page-break-inside: avoid;
@@ -1048,13 +1103,13 @@ mark-key, .mark-key {
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     .comparison-table th {
         background: #f9f7f4;
         print-color-adjust: exact;
         -webkit-print-color-adjust: exact;
     }
-    
+
     .comparison-table th,
     .comparison-table td {
         border: 1px solid var(--ruled-line);
@@ -1078,7 +1133,7 @@ mark-key, .mark-key {
     z-index: 1000;
     background: white;
     border-radius: 12px;
-    box-shadow: 
+    box-shadow:
         0 4px 6px -1px rgba(0, 0, 0, 0.1),
         0 10px 25px -3px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -1086,8 +1141,14 @@ mark-key, .mark-key {
     max-width: calc(100vw - 40px);
     opacity: 0;
     transform: translateY(-4px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
     pointer-events: none;
+
+    /* Performance optimizations */
+    will-change: transform, opacity;
+    contain: layout style paint;
 }
 
 .metadata-tooltip.visible {
@@ -1102,8 +1163,8 @@ mark-key, .mark-key {
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    padding: 8px 8px 0 8px;
-    background: white;
+    padding: 8px;
+    background: #fafafa;
     border-radius: 12px 12px 0 0;
 }
 
@@ -1178,7 +1239,9 @@ mark-key, .mark-key {
     padding: 16px;
     max-height: 50vh;
     overflow-y: auto;
-    border-top: 1px solid #f3f4f6;
+    background: white;
+    border-radius: 0 0 12px 12px;
+    /* No border-top to eliminate gap between header and body */
 }
 
 /* Tooltip content (tab panels) */
@@ -1306,7 +1369,7 @@ mark-key, .mark-key {
 
 /* Tooltip placement indicators */
 .metadata-tooltip[data-placement="right"]::before {
-    content: '';
+    content: "";
     position: absolute;
     left: -6px;
     top: 20px;
@@ -1319,7 +1382,7 @@ mark-key, .mark-key {
 }
 
 .metadata-tooltip[data-placement="left"]::before {
-    content: '';
+    content: "";
     position: absolute;
     right: -6px;
     top: 20px;
@@ -1332,7 +1395,7 @@ mark-key, .mark-key {
 }
 
 .metadata-tooltip[data-placement="bottom"]::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -6px;
     left: 20px;
@@ -1344,6 +1407,18 @@ mark-key, .mark-key {
     transform: rotate(45deg);
 }
 
+/* Invisible bridge to fill gap between block and tooltip */
+.tooltip-bridge {
+    position: absolute;
+    z-index: 999; /* Just below tooltip (1000) but above content */
+    background: transparent;
+    pointer-events: all;
+    /* Debug: uncomment to visualize the bridge
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px dashed red;
+    */
+}
+
 /* Responsive adjustments - Tablet (768px and below) */
 @media (max-width: 768px) {
     .top-bar {
@@ -1351,41 +1426,41 @@ mark-key, .mark-key {
         gap: 12px;
         flex-wrap: wrap;
     }
-    
+
     /* First row: Actions and Info */
     .header-section:first-child {
         flex: 0 0 auto;
     }
-    
+
     .header-info {
         flex: 1 1 auto;
         min-width: 0;
     }
-    
+
     /* Second row: Options and Mode */
     .header-section:nth-child(3),
     .mode-toggle {
         flex: 0 0 auto;
     }
-    
+
     .action-btn {
         padding: 8px 14px;
         font-size: 13px;
     }
-    
+
     .topic-title {
         font-size: 14px;
     }
-    
+
     .stats-display {
         font-size: 11px;
     }
-    
+
     .mode-btn {
         padding: 6px 14px;
         font-size: 13px;
     }
-    
+
     .toggle-label {
         font-size: 12px;
     }
@@ -1397,7 +1472,7 @@ mark-key, .mark-key {
         padding: 10px 12px;
         gap: 10px;
     }
-    
+
     /* Full width stacking */
     .header-section:first-child,
     .header-info,
@@ -1406,58 +1481,58 @@ mark-key, .mark-key {
         flex: 1 1 100%;
         width: 100%;
     }
-    
+
     .header-section:first-child {
         display: flex;
         gap: 8px;
     }
-    
+
     .header-section:nth-child(3) {
         display: flex;
         justify-content: space-around;
     }
-    
+
     .action-btn {
         flex: 1;
         padding: 8px 12px;
         font-size: 12px;
     }
-    
+
     .topic-title {
         font-size: 13px;
     }
-    
+
     .stats-display {
         font-size: 10px;
     }
-    
+
     .mode-btn {
         flex: 1;
         padding: 8px 16px;
         font-size: 12px;
     }
-    
+
     .toggle-label {
         font-size: 11px;
     }
-    
+
     .metadata-tooltip {
         width: calc(100vw - 40px);
     }
-    
+
     .tooltip-body {
         max-height: 40vh;
     }
-    
+
     .tooltip-tabs {
         flex-wrap: wrap;
     }
-    
+
     .tooltip-tab {
         padding: 6px 10px;
         font-size: 12px;
     }
-    
+
     .tab-icon {
         font-size: 13px;
     }
@@ -1500,6 +1575,40 @@ mark-key, .mark-key {
     color: var(--text-secondary);
 }
 
+.library-header p.error-message {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+/* Search input */
+.library-search {
+    margin-top: 24px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    border: 2px solid #e0dcd7;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--margin-line);
+    box-shadow: 0 0 0 3px rgba(201, 165, 122, 0.1);
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
 .library-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -1514,12 +1623,57 @@ mark-key, .mark-key {
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
+
+    /* Make it a proper button */
+    display: block;
+    width: 100%;
+    font: inherit;
+    position: relative;
 }
 
 .library-card:hover {
     border-color: var(--margin-line);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Accessibility: Focus states */
+.library-card:focus {
+    outline: none;
+    border-color: var(--margin-line);
+    box-shadow: 0 0 0 3px rgba(201, 165, 122, 0.2);
+}
+
+.library-card:focus-visible {
+    outline: 2px solid var(--margin-line);
+    outline-offset: 2px;
+}
+
+/* Loading state */
+.library-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: wait;
+}
+
+.library-card.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin: -12px 0 0 -12px;
+    border: 3px solid var(--margin-line);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .library-card.import-card {
@@ -1550,20 +1704,92 @@ mark-key, .mark-key {
     display: none;
 }
 
+/* Loading state */
+.library-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 20px;
+}
+
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #e0dcd7;
+    border-top-color: var(--margin-line);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.library-loading p {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+
+/* Error state */
+.library-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    gap: 20px;
+    text-align: center;
+}
+
+.error-icon {
+    font-size: 64px;
+    opacity: 0.5;
+}
+
+.error-details {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+.error-hint {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: #9ca3af;
+    max-width: 500px;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+.retry-btn {
+    margin-top: 8px;
+}
+
+/* No results message */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+
 @media (max-width: 850px) {
     .library-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 16px;
     }
-    
+
     .library-card {
         padding: 24px 16px;
     }
-    
+
     .card-icon {
         font-size: 36px;
     }
-    
+
     .card-title {
         font-size: 14px;
     }
@@ -1722,7 +1948,11 @@ mark-key, .mark-key {
 
 /* Sample styles matching the actual highlights */
 .legend-sample.key-sentence {
-    background: linear-gradient(180deg, transparent 65%, rgba(212, 165, 116, 0.25) 65%);
+    background: linear-gradient(
+        180deg,
+        transparent 65%,
+        rgba(212, 165, 116, 0.25) 65%
+    );
     font-weight: 500;
 }
 
@@ -1764,25 +1994,25 @@ mark-key, .mark-key {
         width: 44px;
         height: 44px;
     }
-    
+
     .legend-content {
         width: 95%;
         max-height: 85vh;
     }
-    
+
     .legend-header {
         padding: 16px 20px;
     }
-    
+
     .legend-body {
         padding: 20px;
     }
-    
+
     .legend-sample {
         min-width: 120px;
         font-size: 13px;
     }
-    
+
     .legend-desc {
         font-size: 12px;
     }

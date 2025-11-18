@@ -45,7 +45,8 @@ studyModeButtons.forEach((btn) => {
       document.body.classList.remove("exam-mode");
     }
 
-    render();
+    // Debounced render for better performance
+    debouncedRender();
   });
 });
 
@@ -99,8 +100,49 @@ function showNotification(message, type = "success") {
   }, 2000);
 }
 
-// Load and process JSON data
+// Load and process JSON data with validation
 function loadJSON(data) {
+  // Validate JSON structure
+  if (!data || typeof data !== "object") {
+    showNotification("❌ Invalid note format: data must be an object", "error");
+    console.error("Invalid data:", data);
+    return;
+  }
+
+  if (!data.content || !Array.isArray(data.content)) {
+    showNotification("❌ Invalid note format: missing content array", "error");
+    console.error("Invalid data structure:", data);
+    return;
+  }
+
+  // Validate required fields in content blocks
+  const invalidBlocks = data.content.filter((block, index) => {
+    if (!block || typeof block !== "object") {
+      console.error(`Block ${index} is not an object:`, block);
+      return true;
+    }
+    if (!block.type) {
+      console.error(`Block ${index} missing type:`, block);
+      return true;
+    }
+    if (!block.exam_text && !block.full_text) {
+      console.error(
+        `Block ${index} missing both exam_text and full_text:`,
+        block,
+      );
+      return true;
+    }
+    return false;
+  });
+
+  if (invalidBlocks.length > 0) {
+    showNotification(
+      `⚠️ Note loaded with ${invalidBlocks.length} invalid blocks`,
+      "error",
+    );
+    console.error("Invalid blocks found:", invalidBlocks);
+  }
+
   currentData = data;
 
   // Calculate stats
@@ -128,10 +170,17 @@ function updateHeader() {
   topicTitle.textContent = topic ? `${title} - ${topic}` : title;
 }
 
-// Render
+// Render with scroll position preservation and performance optimizations
 function render() {
   const dataArray = currentData?.content;
   if (!currentData || !dataArray) return;
+
+  // Performance tracking (remove in production)
+  const renderStart = performance.now();
+
+  // Save scroll position before re-render
+  const scrollY = window.scrollY;
+  const scrollX = window.scrollX;
 
   // In exam mode, only show exam-critical blocks
   let blocks = dataArray;
@@ -151,10 +200,41 @@ function render() {
   // Track rendered paths to avoid duplicates
   const renderedPaths = new Set();
 
-  noteContent.innerHTML = blocks
-    .map((block) => renderBlock(block, topicMap, renderedPaths))
-    .join("\n");
+  // Use DocumentFragment for better performance (single reflow)
+  const fragment = document.createDocumentFragment();
+  const tempDiv = document.createElement("div");
+
+  blocks.forEach((block) => {
+    const html = renderBlock(block, topicMap, renderedPaths);
+    if (html) {
+      tempDiv.innerHTML = html;
+      while (tempDiv.firstChild) {
+        fragment.appendChild(tempDiv.firstChild);
+      }
+    }
+  });
+
+  // Single DOM operation (much faster than innerHTML with string concatenation)
+  noteContent.innerHTML = "";
+  noteContent.appendChild(fragment);
+
+  // Restore scroll position after re-render
+  requestAnimationFrame(() => {
+    window.scrollTo(scrollX, scrollY);
+
+    // Performance tracking
+    const renderEnd = performance.now();
+    console.log(
+      `⚡ Render completed in ${(renderEnd - renderStart).toFixed(2)}ms`,
+    );
+  });
+
+  // Re-initialize tooltips after content change
+  initHoverTooltips();
 }
+
+// Debounced version of render for better performance
+const debouncedRender = debounce(render, 16); // One frame at 60fps
 
 // Render individual block
 function renderBlock(block, topicMap = {}, renderedPaths = new Set()) {
@@ -537,30 +617,44 @@ function renderVisual(block, blockId, marginNote) {
     </div>`;
 }
 
+// Memoization cache for formatted text (performance optimization)
+const formatCache = new Map();
+
 // Format text with markdown and highlights
 function formatText(text) {
   if (!text) return "";
 
-  return (
-    text
-      // Convert custom highlight tags to HTML
-      .replace(
-        /<mark-critical>(.*?)<\/mark-critical>/g,
-        '<mark class="mark-critical">$1</mark>',
-      )
-      .replace(
-        /<mark-key>(.*?)<\/mark-key>/g,
-        '<mark class="mark-key">$1</mark>',
-      )
-      .replace(
-        /<mark-important>(.*?)<\/mark-important>/g,
-        '<mark class="key-sentence">$1</mark>',
-      )
-      // Standard markdown
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.*?)\*/g, "<em>$1</em>")
-      .replace(/`(.*?)`/g, "<code>$1</code>")
-  );
+  // Check cache first
+  if (formatCache.has(text)) {
+    return formatCache.get(text);
+  }
+
+  const result = text
+    // Convert custom highlight tags to HTML
+    .replace(
+      /<mark-critical>(.*?)<\/mark-critical>/g,
+      '<mark class="mark-critical">$1</mark>',
+    )
+    .replace(/<mark-key>(.*?)<\/mark-key>/g, '<mark class="mark-key">$1</mark>')
+    .replace(
+      /<mark-important>(.*?)<\/mark-important>/g,
+      '<mark class="key-sentence">$1</mark>',
+    )
+    // Standard markdown
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.*?)\*/g, "<em>$1</em>")
+    .replace(/`(.*?)`/g, "<code>$1</code>");
+
+  // Cache the result
+  formatCache.set(text, result);
+
+  // Limit cache size to prevent memory issues
+  if (formatCache.size > 500) {
+    const firstKey = formatCache.keys().next().value;
+    formatCache.delete(firstKey);
+  }
+
+  return result;
 }
 
 // Parse markdown bullets to HTML
@@ -680,23 +774,55 @@ function getMetadataIndicator(block) {
   return ""; // Indicator removed for cleaner paper appearance
 }
 
-// Initialize hover tooltips with improved UX
+// Tooltip state management - single source of truth
+const tooltipState = {
+  hideTimeout: null,
+  showTimeout: null,
+  currentBlockId: null,
+  isOverTooltip: false,
+  isOverBlock: false,
+  abortController: null,
+
+  reset() {
+    this.clearTimeouts();
+    this.currentBlockId = null;
+    this.isOverTooltip = false;
+    this.isOverBlock = false;
+  },
+
+  clearTimeouts() {
+    if (this.hideTimeout) clearTimeout(this.hideTimeout);
+    if (this.showTimeout) clearTimeout(this.showTimeout);
+    this.hideTimeout = null;
+    this.showTimeout = null;
+  },
+
+  shouldHide() {
+    return !this.isOverTooltip && !this.isOverBlock;
+  },
+
+  cleanup() {
+    this.clearTimeouts();
+    if (this.abortController) {
+      this.abortController.abort();
+      this.abortController = null;
+    }
+  },
+};
+
+// Initialize hover tooltips with improved UX and proper cleanup
 function initHoverTooltips() {
-  let hideTimeout = null;
-  let showTimeout = null;
-  let currentBlockId = null;
-  let isOverTooltip = false;
-  let isOverBlock = false;
+  // Clean up any existing listeners
+  tooltipState.cleanup();
+
+  // Create new abort controller for this initialization
+  tooltipState.abortController = new AbortController();
+  const signal = tooltipState.abortController.signal;
 
   // Helper to safely get closest element
   const getClosest = (element, selector) => {
     if (!element || !element.closest) return null;
     return element.closest(selector);
-  };
-
-  // Helper to check if we should hide
-  const shouldHide = () => {
-    return !isOverTooltip && !isOverBlock;
   };
 
   // Delegate event handling for better performance
@@ -709,36 +835,29 @@ function initHoverTooltips() {
         "[data-simple], [data-analogy], [data-why]",
       );
       if (blockEl) {
-        isOverBlock = true;
+        tooltipState.isOverBlock = true;
         const blockId = blockEl.getAttribute("data-id");
 
         // Don't show tooltip if already showing for this block
         if (
-          currentBlockId === blockId &&
+          tooltipState.currentBlockId === blockId &&
           document.querySelector(".metadata-tooltip")
         ) {
           return;
         }
 
-        clearTimeout(hideTimeout);
-        clearTimeout(showTimeout);
+        tooltipState.clearTimeouts();
 
         // Delay showing tooltip to prevent spam
-        showTimeout = setTimeout(() => {
-          currentBlockId = blockId;
+        tooltipState.showTimeout = setTimeout(() => {
+          tooltipState.currentBlockId = blockId;
           showTooltip(blockEl);
         }, 300);
       }
 
-      // Check if entering tooltip
-      const tooltipEl = getClosest(e.target, ".metadata-tooltip");
-      if (tooltipEl) {
-        isOverTooltip = true;
-        clearTimeout(hideTimeout);
-        clearTimeout(showTimeout);
-      }
+      // Note: Tooltip hover is now handled by direct listeners on the element
     },
-    true,
+    { capture: true, signal }, // Removed passive to allow proper event handling
   );
 
   document.addEventListener(
@@ -751,71 +870,70 @@ function initHoverTooltips() {
         "[data-simple], [data-analogy], [data-why]",
       );
       if (blockEl) {
-        isOverBlock = false;
-        clearTimeout(showTimeout);
+        tooltipState.isOverBlock = false;
+        tooltipState.clearTimeouts();
 
         // Delay hiding to allow moving to tooltip
-        hideTimeout = setTimeout(() => {
-          if (shouldHide()) {
+        tooltipState.hideTimeout = setTimeout(() => {
+          if (tooltipState.shouldHide()) {
             hideTooltip();
-            currentBlockId = null;
+            tooltipState.currentBlockId = null;
           }
-        }, 300);
+        }, 200);
       }
 
-      const tooltipEl = getClosest(e.target, ".metadata-tooltip");
-      if (tooltipEl) {
-        isOverTooltip = false;
-        hideTimeout = setTimeout(() => {
-          if (shouldHide()) {
-            hideTooltip();
-            currentBlockId = null;
-          }
-        }, 300);
-      }
+      // Note: Tooltip hover is now handled by direct listeners on the element
     },
-    true,
+    { capture: true, signal }, // Removed passive to allow proper event handling
   );
 
   // Touch support for mobile - click on indicator
-  document.addEventListener("click", (e) => {
-    if (!e.target) return;
-    const indicator = getClosest(e.target, ".metadata-indicator");
-    if (indicator) {
-      e.preventDefault();
-      e.stopPropagation();
-      const blockEl = getClosest(
-        indicator,
-        "[data-simple], [data-analogy], [data-why]",
-      );
-      if (blockEl) {
-        const blockId = blockEl.getAttribute("data-id");
-        const existing = document.querySelector(".metadata-tooltip");
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (!e.target) return;
+      const indicator = getClosest(e.target, ".metadata-indicator");
+      if (indicator) {
+        e.preventDefault();
+        e.stopPropagation();
+        const blockEl = getClosest(
+          indicator,
+          "[data-simple], [data-analogy], [data-why]",
+        );
+        if (blockEl) {
+          const blockId = blockEl.getAttribute("data-id");
+          const existing = document.querySelector(".metadata-tooltip");
 
-        if (existing && currentBlockId === blockId) {
-          hideTooltip();
-          currentBlockId = null;
-        } else {
-          currentBlockId = blockId;
-          showTooltip(blockEl);
+          if (existing && tooltipState.currentBlockId === blockId) {
+            hideTooltip();
+            tooltipState.currentBlockId = null;
+          } else {
+            tooltipState.currentBlockId = blockId;
+            showTooltip(blockEl);
+          }
         }
       }
-    }
-  });
+    },
+    { signal },
+  );
 
   // Close tooltip when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!e.target) return;
-    if (
-      !getClosest(e.target, ".metadata-tooltip") &&
-      !getClosest(e.target, ".metadata-indicator")
-    ) {
-      if (document.querySelector(".metadata-tooltip")) {
-        hideTooltip();
-        currentBlockId = null;
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (!e.target) return;
+      if (
+        !getClosest(e.target, ".metadata-tooltip") &&
+        !getClosest(e.target, ".metadata-indicator")
+      ) {
+        if (document.querySelector(".metadata-tooltip")) {
+          hideTooltip();
+          tooltipState.currentBlockId = null;
+        }
       }
-    }
-  });
+    },
+    { signal },
+  );
 }
 
 // Show tooltip with improved positioning and tabs
@@ -870,7 +988,7 @@ function showTooltip(blockEl) {
                   )
                   .join("")}
             </div>
-            <button class="tooltip-close" onclick="hideTooltip()" aria-label="Close">×</button>
+            <button class="tooltip-close" aria-label="Close">×</button>
         </div>
         <div class="tooltip-body">
             ${tabs
@@ -923,12 +1041,101 @@ function showTooltip(blockEl) {
     });
   });
 
+  // Add click handler for close button
+  const closeBtn = tooltip.querySelector(".tooltip-close");
+  closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    hideTooltip(true);
+  });
+
+  // Add direct hover handlers to tooltip to prevent child element issues
+  tooltip.addEventListener("mouseenter", () => {
+    tooltipState.isOverTooltip = true;
+    tooltipState.clearTimeouts();
+  });
+
+  tooltip.addEventListener("mouseleave", () => {
+    tooltipState.isOverTooltip = false;
+    tooltipState.clearTimeouts();
+
+    tooltipState.hideTimeout = setTimeout(() => {
+      if (tooltipState.shouldHide()) {
+        hideTooltip();
+        tooltipState.currentBlockId = null;
+      }
+    }, 200);
+  });
+
   // Position tooltip with smart placement
   positionTooltip(tooltip, blockEl);
+
+  // Create invisible bridge element to fill the gap
+  createTooltipBridge(tooltip, blockEl);
 
   // Animate in
   requestAnimationFrame(() => {
     tooltip.classList.add("visible");
+  });
+}
+
+// Create an invisible bridge between block and tooltip to prevent hover gap
+function createTooltipBridge(tooltip, blockEl) {
+  // Remove any existing bridge
+  const existingBridge = document.querySelector(".tooltip-bridge");
+  if (existingBridge) {
+    existingBridge.remove();
+  }
+
+  const bridge = document.createElement("div");
+  bridge.className = "tooltip-bridge";
+  bridge.setAttribute("data-block-id", blockEl.getAttribute("data-id"));
+
+  const blockRect = blockEl.getBoundingClientRect();
+  const tooltipRect = tooltip.getBoundingClientRect();
+  const placement = tooltip.getAttribute("data-placement");
+
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+
+  // Position bridge based on tooltip placement
+  if (placement === "right") {
+    // Bridge spans from block right edge to tooltip left edge
+    bridge.style.left = `${blockRect.right + scrollX}px`;
+    bridge.style.top = `${blockRect.top + scrollY}px`;
+    bridge.style.width = `${tooltipRect.left - blockRect.right}px`;
+    bridge.style.height = `${blockRect.height}px`;
+  } else if (placement === "left") {
+    // Bridge spans from tooltip right edge to block left edge
+    bridge.style.left = `${tooltipRect.right + scrollX}px`;
+    bridge.style.top = `${blockRect.top + scrollY}px`;
+    bridge.style.width = `${blockRect.left - tooltipRect.right}px`;
+    bridge.style.height = `${blockRect.height}px`;
+  } else if (placement === "bottom") {
+    // Bridge spans from block bottom edge to tooltip top edge
+    bridge.style.left = `${blockRect.left + scrollX}px`;
+    bridge.style.top = `${blockRect.bottom + scrollY}px`;
+    bridge.style.width = `${blockRect.width}px`;
+    bridge.style.height = `${tooltipRect.top - blockRect.bottom}px`;
+  }
+
+  document.body.appendChild(bridge);
+
+  // Add hover handlers to bridge to maintain tooltip state
+  bridge.addEventListener("mouseenter", () => {
+    tooltipState.isOverTooltip = true;
+    tooltipState.clearTimeouts();
+  });
+
+  bridge.addEventListener("mouseleave", () => {
+    tooltipState.isOverTooltip = false;
+    tooltipState.clearTimeouts();
+
+    tooltipState.hideTimeout = setTimeout(() => {
+      if (tooltipState.shouldHide()) {
+        hideTooltip();
+        tooltipState.currentBlockId = null;
+      }
+    }, 200);
   });
 }
 
@@ -984,15 +1191,34 @@ function positionTooltip(tooltip, blockEl) {
   tooltip.setAttribute("data-placement", placement);
 }
 
-// Hide tooltip
-function hideTooltip() {
+// Hide tooltip with proper state management
+function hideTooltip(force = false) {
+  // Double-check state before hiding (unless forced by close button)
+  if (!force && (tooltipState.isOverTooltip || tooltipState.isOverBlock)) {
+    return; // Don't hide if still hovering
+  }
+
+  // Force close: reset state immediately
+  if (force) {
+    tooltipState.reset();
+  }
+
   const existing = document.querySelector(".metadata-tooltip");
   if (existing) {
     existing.classList.remove("visible");
     setTimeout(() => {
-      // Double check it's still not being hovered before removing
-      if (existing.parentNode) {
+      // Triple check state hasn't changed during animation
+      if (
+        existing.parentNode &&
+        !tooltipState.isOverTooltip &&
+        !tooltipState.isOverBlock
+      ) {
         existing.remove();
+        // Also remove the bridge
+        const bridge = document.querySelector(".tooltip-bridge");
+        if (bridge) {
+          bridge.remove();
+        }
       }
     }, 200);
   }
@@ -1194,53 +1420,100 @@ function loadFromLocalStorage() {
   }
 }
 
+// Show library loading state
+function showLibraryLoading() {
+  const libraryHTML = `
+    <div class="library-view">
+      <div class="library-header">
+        <h2>📚 Study Notes Library</h2>
+        <p>Loading notes...</p>
+      </div>
+      <div class="library-loading">
+        <div class="spinner"></div>
+        <p>Fetching your study notes...</p>
+      </div>
+    </div>
+  `;
+
+  noteContent.innerHTML = libraryHTML;
+  document.querySelector(".paper-sheet").classList.add("library-mode");
+}
+
+// Show library error state
+function showLibraryError(message) {
+  const libraryHTML = `
+    <div class="library-view">
+      <div class="library-header">
+        <h2>📚 Study Notes Library</h2>
+        <p class="error-message">Failed to load library</p>
+      </div>
+      <div class="library-error">
+        <div class="error-icon">⚠️</div>
+        <p class="error-details">${escapeHtml(message)}</p>
+        <button class="retry-btn action-btn" onclick="loadNotesLibrary()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+          Retry
+        </button>
+        <p class="error-hint">💡 Make sure you're running a local server or deployed to GitHub Pages</p>
+      </div>
+    </div>
+  `;
+
+  noteContent.innerHTML = libraryHTML;
+  document.querySelector(".paper-sheet").classList.add("library-mode");
+}
+
 // Load notes library from /notes folder
 async function loadNotesLibrary() {
+  // Show loading state
+  showLibraryLoading();
+
   notesLibrary = []; // Start with empty array
 
   try {
     const indexResponse = await fetch("notes/index.html");
-    if (indexResponse.ok) {
-      const html = await indexResponse.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, "text/html");
-      const links = doc.querySelectorAll('a[href$=".json"]');
 
-      if (links.length > 0) {
-        notesLibrary = Array.from(links).map((link) => {
-          const href = link.getAttribute("href");
-          // Use the link text as the display name (allows custom names)
-          const name = link.textContent.trim();
-          return {
-            name: name,
-            path: "notes/" + href,
-          };
-        });
-        console.log("✅ Loaded notes from notes/index.html:", notesLibrary);
-      } else {
-        console.log("⚠️ No .json files found in notes/index.html");
-      }
-    } else {
-      console.log(
-        "⚠️ Could not load notes/index.html (Status:",
-        indexResponse.status + ")",
+    if (!indexResponse.ok) {
+      throw new Error(
+        `Failed to load notes index (Status: ${indexResponse.status})`,
       );
     }
-  } catch (error) {
-    console.log("⚠️ Error loading notes library:", error.message);
-    console.log(
-      "💡 Tip: Make sure you're running a local server or deployed to GitHub Pages",
-    );
-  }
 
-  // Check if there's a saved note to restore
-  const savedNotePath = localStorage.getItem("currentNotePath");
-  if (savedNotePath) {
-    console.log("📖 Restoring last opened note:", savedNotePath);
-    loadNoteFromPath(savedNotePath);
-  } else {
-    // Show library view if no saved note
-    showLibraryView();
+    const html = await indexResponse.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const links = doc.querySelectorAll('a[href$=".json"]');
+
+    if (links.length > 0) {
+      notesLibrary = Array.from(links).map((link) => {
+        const href = link.getAttribute("href");
+        // Use the link text as the display name (allows custom names)
+        const name = link.textContent.trim();
+        return {
+          name: name,
+          path: "notes/" + href,
+        };
+      });
+      console.log("✅ Loaded notes from notes/index.html:", notesLibrary);
+    } else {
+      console.log("⚠️ No .json files found in notes/index.html");
+    }
+
+    // Check if there's a saved note to restore
+    const savedNotePath = localStorage.getItem("currentNotePath");
+    if (savedNotePath) {
+      console.log("📖 Restoring last opened note:", savedNotePath);
+      await loadNoteFromPath(savedNotePath);
+    } else {
+      // Show library view if no saved note
+      showLibraryView();
+    }
+  } catch (error) {
+    console.error("❌ Error loading notes library:", error);
+    showLibraryError(error.message);
   }
 }
 
@@ -1328,7 +1601,7 @@ async function loadNoteFromPath(path, retryWithoutCache = false) {
   }
 }
 
-// Show library view
+// Show library view with search and proper event handling
 function showLibraryView() {
   const hasNotes = notesLibrary.length > 0;
 
@@ -1337,32 +1610,127 @@ function showLibraryView() {
             <div class="library-header">
                 <h2>📚 Study Notes Library</h2>
                 <p>${hasNotes ? "Select a note to start studying" : "No notes found in library"}</p>
-            </div>
-            <div class="library-grid">
                 ${
                   hasNotes
-                    ? notesLibrary
-                        .map(
-                          (note) => `
-                    <div class="library-card" onclick="loadNoteFromPath('${note.path}')">
-                        <div class="card-icon">📄</div>
-                        <div class="card-title">${note.name}</div>
+                    ? `
+                    <div class="library-search">
+                        <input
+                            type="search"
+                            id="librarySearch"
+                            placeholder="🔍 Search notes..."
+                            class="search-input"
+                            aria-label="Search notes"
+                        />
                     </div>
-                `,
-                        )
-                        .join("")
+                `
                     : ""
                 }
-                <div class="library-card import-card" onclick="document.getElementById('fileInput').click()">
-                    <div class="card-icon">📂</div>
-                    <div class="card-title">Import File</div>
-                </div>
+            </div>
+            <div class="library-grid" id="libraryGrid">
+                ${renderLibraryCards(notesLibrary)}
             </div>
         </div>
     `;
 
   noteContent.innerHTML = libraryHTML;
   document.querySelector(".paper-sheet").classList.add("library-mode");
+
+  // Setup search functionality
+  if (hasNotes) {
+    const searchInput = document.getElementById("librarySearch");
+    searchInput.addEventListener(
+      "input",
+      debounce((e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const filtered = query
+          ? notesLibrary.filter((note) =>
+              note.name.toLowerCase().includes(query),
+            )
+          : notesLibrary;
+        document.getElementById("libraryGrid").innerHTML =
+          renderLibraryCards(filtered);
+        setupLibraryCardHandlers(); // Re-attach handlers after re-render
+      }, 300),
+    );
+  }
+
+  // Setup card click handlers
+  setupLibraryCardHandlers();
+}
+
+// Render library cards (separated for reusability)
+function renderLibraryCards(notes) {
+  const hasNotes = notes.length > 0;
+  const cardsHTML = hasNotes
+    ? notes
+        .map(
+          (note, index) => `
+        <button
+            class="library-card"
+            data-note-index="${index}"
+            data-note-path="${escapeHtml(note.path)}"
+            aria-label="Open ${escapeHtml(note.name)}"
+        >
+            <div class="card-icon">📄</div>
+            <div class="card-title">${escapeHtml(note.name)}</div>
+        </button>
+    `,
+        )
+        .join("")
+    : '<p class="no-results">No notes found</p>';
+
+  return `
+    ${cardsHTML}
+    <button
+        class="library-card import-card"
+        data-action="import"
+        aria-label="Import note file"
+    >
+        <div class="card-icon">📂</div>
+        <div class="card-title">Import File</div>
+    </button>
+  `;
+}
+
+// Setup event delegation for library cards
+function setupLibraryCardHandlers() {
+  const libraryGrid = document.getElementById("libraryGrid");
+  if (!libraryGrid) return;
+
+  // Remove old listener if exists (prevent duplicates)
+  const oldHandler = libraryGrid._clickHandler;
+  if (oldHandler) {
+    libraryGrid.removeEventListener("click", oldHandler);
+  }
+
+  // Create new handler
+  const clickHandler = (e) => {
+    const card = e.target.closest(".library-card");
+    if (!card) return;
+
+    // Handle import card
+    if (card.dataset.action === "import") {
+      document.getElementById("fileInput").click();
+      return;
+    }
+
+    // Handle note card
+    const path = card.dataset.notePath;
+    if (path) {
+      // Add loading state
+      card.classList.add("loading");
+      card.setAttribute("aria-busy", "true");
+
+      loadNoteFromPath(path).finally(() => {
+        card.classList.remove("loading");
+        card.setAttribute("aria-busy", "false");
+      });
+    }
+  };
+
+  // Store reference for cleanup
+  libraryGrid._clickHandler = clickHandler;
+  libraryGrid.addEventListener("click", clickHandler);
 }
 
 // Hide library view
@@ -1425,6 +1793,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initLegend();
 });
 
+// Clean up tooltips when page unloads
+window.addEventListener("beforeunload", () => {
+  tooltipState.cleanup();
+});
+
 // Confetti celebration when completing notes
 function initConfettiOnComplete() {
   let jsConfetti = null;
@@ -1432,7 +1805,7 @@ function initConfettiOnComplete() {
   let hasShownConfetti = false;
   let isAtBottom = false;
 
-  const MIN_READ_TIME = 10000; // 10 seconds minimum
+  const MIN_READ_TIME = 120000; // 2 minutes minimum (120 seconds)
   const SCROLL_THRESHOLD = 50; // pixels from bottom
 
   // Initialize confetti instance
@@ -1462,13 +1835,13 @@ function initConfettiOnComplete() {
     return distanceFromBottom <= SCROLL_THRESHOLD;
   };
 
-  // Handle scroll event with throttling
-  let scrollTimeout = null;
+  // Handle scroll event with RAF (better performance than setTimeout)
+  let rafId = null;
   const handleScroll = () => {
-    if (scrollTimeout) return;
+    if (rafId) return;
 
-    scrollTimeout = setTimeout(() => {
-      scrollTimeout = null;
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
 
       const nowAtBottom = checkScrollPosition();
 
@@ -1502,7 +1875,7 @@ function initConfettiOnComplete() {
       } else if (!nowAtBottom) {
         isAtBottom = false;
       }
-    }, 100); // Throttle to every 100ms
+    });
   };
 
   // Reset timer when new content is loaded
