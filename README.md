@@ -1,6 +1,6 @@
 # Study Notes App
 
-A beautiful, paper-inspired study notes viewer for Thathsarani.
+A beautiful, paper-inspired study notes viewer for the IS Degree module at Sabaragamuwa University of Sri Lanka.
 
 ## 🤖 For AI Agents
 
