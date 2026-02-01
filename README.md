@@ -1,90 +1,146 @@
-# Study Notes App
+<div align="center">
 
-A beautiful, paper-inspired study notes viewer for the IS Degree module at Sabaragamuwa University of Sri Lanka.
+# ☕ T-Study
 
-## 🤖 For AI Agents
+**Your notes deserve to look good.**
 
-**Start every chat session by reading these context files:**
+[![Vanilla JS](https://img.shields.io/badge/Vanilla-JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8)](https://web.dev/progressive-web-apps/)
+[![Works Offline](https://img.shields.io/badge/Works-Offline-4CAF50)](https://web.dev/offline-cookbook/)
 
-1. **`PROJECT_CONTEXT.md`** - Comprehensive project documentation (architecture, data structures, features)
-2. **`QUICK_REFERENCE.md`** - Quick reference for common tasks and debugging
+---
 
-These files use proven context engineering techniques to help you understand and work with this project seamlessly.
+</div>
 
-```
-Load context files → Understand project structure → Execute user requests
-```
+## What's this?
 
-### 📚 Complete Context Documentation
+I built T-Study because I was tired of ugly study apps. I wanted something that feels like a real notebook — warm paper, ruled lines, that red margin we all know from school. But digital, so I can switch between "show me everything" and "just the exam stuff."
 
-This project includes a comprehensive context documentation system:
+It's a web app that reads your study notes (in JSON format) and displays them beautifully. No accounts, no subscriptions, works offline. Just you and your notes.
 
-| File | Purpose | When to Use |
-|------|---------|-------------|
-| 📇 `CONTEXT_INDEX.md` | Master navigation guide | Finding the right doc |
-| 📘 `PROJECT_CONTEXT.md` | Full project documentation | Every fresh chat (essential) |
-| ⚡ `QUICK_REFERENCE.md` | Commands & quick tasks | Task execution (essential) |
-| 🎯 `FRESH_CHAT_PROMPT.md` | Ready-to-use prompts | Starting new chats |
-| 📖 `HOW_TO_USE_CONTEXT.md` | Usage instructions | First time / training |
-| 🧪 `CONTEXT_ENGINEERING.md` | Methodology explained | Understanding approach |
+**Built for:** Students at Sabaragamuwa University of Sri Lanka (IS Degree), but anyone can use it.
 
-**Quick Start**: Use the prompt template from `FRESH_CHAT_PROMPT.md` in every new chat session!
-
-## How to Run
-
-You need to run a local web server because browsers block file:// protocol requests.
-
-### Option 1: Python (Recommended)
-
-If you have Python installed:
-
-```bash
-# Python 3
-python3 -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-```
-
-Then open: http://localhost:8000
-
-### Option 2: Node.js
-
-If you have Node.js installed:
-
-```bash
-npx http-server -p 8000
-```
-
-Then open: http://localhost:8000
-
-### Option 3: VS Code Live Server
-
-1. Install "Live Server" extension in VS Code
-2. Right-click on `index.html`
-3. Select "Open with Live Server"
-
-### Option 4: PHP
-
-If you have PHP installed:
-
-```bash
-php -S localhost:8000
-```
-
-Then open: http://localhost:8000
-
-## Adding Notes
-
-1. Place your `.json` note files in the `notes/` folder
-2. Update `notes/index.html` to list the new files
-3. Or use the "Import File" option in the library
+---
 
 ## Features
 
-- 📝 Exam Mode / Full Understanding Mode
-- 💡 Hover tooltips for learning aids
-- 🎯 Path navigation
-- 🎉 Confetti celebration on completion
-- 📱 Fully responsive design
-- 🖨️ Print-friendly with paper aesthetic
+**📝 Two study modes**
+- *Full Mode* — see all your notes with full explanations
+- *Exam Mode* — only shows the critical stuff (marked with ⚡)
+
+**💡 Tooltips that actually help**  
+Hover on a concept and get a simple explanation, a real-world analogy, and context for why it matters. Great for those "wait, what does this mean again?" moments.
+
+**📱 Works on your phone**  
+Responsive design. Looks good on desktop, tablet, phone.
+
+**⚡ Works offline**  
+It's a PWA. Install it, and you can study without internet.
+
+**🎨 Paper aesthetic**  
+Warm off-white background, blue ruled lines, red margin, 3-hole punch decoration. Feels like a real notebook.
+
+**🎉 Confetti when you finish**  
+Small thing, but it feels good.
+
+---
+
+## Quick Start
+
+You need a local server (browsers block file:// requests). Pick whatever you have installed:
+
+```bash
+# Python
+python3 -m http.server 8000
+
+# Node.js
+npx http-server -p 8000
+
+# PHP
+php -S localhost:8000
+```
+
+Then go to `http://localhost:8000`
+
+**VS Code users:** Just install Live Server extension, right-click `index.html`, done.
+
+---
+
+## Adding Your Notes
+
+1. Create a `.json` file with your notes (see format below)
+2. Put it in the `notes/` folder
+3. Add a link to it in `notes/index.html`
+4. Refresh the app
+
+### Note Format
+
+```json
+{
+  "title": "Course Name",
+  "topic": "Chapter or Topic",
+  "content": [
+    {
+      "type": "concept",
+      "title": "Some Concept",
+      "exam_text": "Short version for exams",
+      "full_text": "Longer explanation with details",
+      "key_sentence": "The one thing to remember",
+      "simple_explanation": "ELI5 version",
+      "analogy": "It's like...",
+      "exam_critical": true
+    }
+  ]
+}
+```
+
+Check `AI_CONTEXT.md` for the full spec if you want all the details.
+
+---
+
+## Tech
+
+No frameworks. No npm install. No build step. Just:
+
+- Vanilla JavaScript (~40 KB)
+- CSS3 with custom properties
+- Service Worker for offline
+- LocalStorage for preferences
+
+Total size: ~63 KB. Loads fast.
+
+---
+
+## Contributing
+
+PRs welcome! Just keep it simple:
+
+- No frameworks (React, Vue, etc.)
+- No npm dependencies
+- Keep the paper look
+- Test both study modes
+- Make sure it works offline
+
+---
+
+## For AI Agents
+
+If you're using AI tools to work on this project, have them read `AI_CONTEXT.md` first. It has everything — architecture, code patterns, common issues, the works.
+
+This project is **human-made** but AI-assisted. The code and design decisions are mine. I use AI as a tool for faster development and documentation.
+
+---
+
+## License
+
+MIT — do whatever you want with it.
+
+---
+
+<div align="center">
+
+Made by [Chamath Thiwanka](https://github.com/chama-x) for students who deserve better study tools.
+
+⭐ Star if you find it useful
+
+</div>
